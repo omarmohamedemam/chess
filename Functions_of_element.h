@@ -11,7 +11,7 @@ if(j1==2 &&(i1==65||i1==66||i1==67||i1==68||i1==69||i1==70||i1==71||i1==72)){
 /*check if the move not from stat*/
 else if(j1==3||j1==4||j1==5||j1==6 && (j2-j1)==1 && i1==i2){
             /*if(j2==7){
-                change it with any piecce
+                change it with any piecce like king or >>
             }*/
     flag=1;
     }
@@ -33,7 +33,7 @@ if(j2==2 &&(i2==65||i2==66||i2==67||i2==68||i2==69||i2==70||i2==71||i2==72)){
 /*check if the move not from stat*/
 else if(j2==3||j2==4||j2==5||j2==6 && (j1-j2)==1 && i1==i2){
             /*if(j1==7){
-                change it with any piecce
+                change it with any piecce like king or >>
             }*/
     flag=1;
     }
