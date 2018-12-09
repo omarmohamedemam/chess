@@ -121,6 +121,7 @@ if((j1==1 && i1==72)||(j1==1 && i1==65)){
     flag=0;
     }*/
 }//when it is in any place at raw 1
+    // i used abs function because rook can move up and down 
 else if(j1==1&&(i1==66||i1==67||i1==68||i1==69||i1==70||i1==71) ){
     if((abs(j2-j1)==1 || abs(j2-j1)==2 || abs(j2-j1)==3 || abs(j2-j1)==4 || abs(j2-j1)==5 || abs(j2-j1)==6 || abs(j2-j1)==7) && i1==i2){
         flag=1;
