@@ -19,5 +19,10 @@ char first_time_board (char b[8][8]){
 
     return b;
 }
+struct s_text {
+    int num[2];
+    char letter[3];
+
+};
 
 #endif // INITIALIZE_H_INCLUDED

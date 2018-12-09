@@ -1,5 +1,6 @@
 #ifndef FUNCTIONS_H_INCLUDED
 #include <ctype.h>
+#include "initialize.h"
 #define FUNCTIONS_H_INCLUDED
 
 //clear screen function
@@ -7,20 +8,27 @@ void clrscr()
 {
     system("@cls||clear");
 }
-char scan_move(char a[6]){
+ struct s_text scan_move(){
+     struct s_text scan;
     printf("Enter your movement:");
-    char r[6];
-    for(int i=0 ;i<6;i++){
-        scanf(" %c",r[i]);
+    int a[2];
+    char b[3];
+    for(int i=0 ;i<2;i++){
+        scanf(" %c",&b[i]);
+        scanf("%d",&a[i]);
     }
-    for(int i=0 ;i<6;i++){
-        r[i]=tolower(r[i]);
+    /* in case of promotion
+     scanf(" %c",&b[3]);*/
+    for(int i=0 ;i<2;i++){
+        b[i]=toupper(b[i]);
     }
-    if(r[0]>'h' || r[3]>'h' || r[0]<'a' ||r[3]<'a' || r[1]>'8' || r[1]<'1' || r[4]<'1' || r[4]>'8'){
-        scan_move(a);
+    for(int i=0 ;i<2;i++){
+        scan.num[i]=a[i];
     }
-    a=r;
-    return a;
+    for(int i=0 ;i<2;i++){
+        scan.letter[i]=b[i];
+    }
+    return scan;
 
 
 }
