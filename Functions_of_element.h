@@ -1,6 +1,6 @@
 #ifndef FUNCTIONS_OF_ELEMENT_H_INCLUDED
 #define FUNCTIONS_OF_ELEMENT_H_INCLUDED
-
+// i1:is a character from A to Z ,j1:is a number from 1 to 7 i think 
 void pawns(char i1,int j1,char i2,int j2){
 int flag=0;
 /*check The move of pawns at starting game*/
