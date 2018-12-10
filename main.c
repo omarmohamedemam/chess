@@ -20,8 +20,15 @@ int main()
    }
         clrscr();
         print_board(pieces);
-        r_scan=scan_move();
-        move_pieces(pieces,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
-        print_board(pieces);
+        for(int i =0 ;i<20;i++){
+            r_scan=scan_move();
+           int e=pawns_black(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
+            if(e && text_check/*for boundaries */){
+                move_pieces(pieces,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
+                print_board(pieces);
+            }
+        }
+
+
     return 0;
 }

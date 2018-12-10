@@ -4,9 +4,9 @@
 char intro(){
     char m;
          printf("\n\tWelcome To Chess Game\n\n \n");
-         printf("\t #####     #        #######      ####    ####\n");
-         printf("\t#          #        #           #       #   \n");
-         printf("\t#          #        #           #       # \n");
+         printf("\t #####     #   #    #######      ####    ####\n");
+         printf("\t#          #   #    #           #       #   \n");
+         printf("\t#          #   #    #           #       # \n");
          printf("\t#          #####    #######      ###     ###\n");
          printf("\t#          #   #    #               #       #\n");
          printf("\t#          #   #    #               #       #\n");

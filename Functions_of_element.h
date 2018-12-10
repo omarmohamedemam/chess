@@ -1,7 +1,7 @@
 #ifndef FUNCTIONS_OF_ELEMENT_H_INCLUDED
 #define FUNCTIONS_OF_ELEMENT_H_INCLUDED
 // i1:is a character from A to h ,j1:is a number from 1 to 8 i think
-void pawns_black(char i1,int j1,char i2,int j2){
+int  pawns_black(char i1,int j1,char i2,int j2){
 int flag=0;
 /*check The move of pawns at starting game*/
 // why upper......................
@@ -19,41 +19,36 @@ else if((j1==3||j1==4||j1==5||j1==6||j1==7) && (j2-j1)==1 && i1==i2){
     /*if not be the move of pawns*/
     else{
         flag=0;
-        printf("Error");
     }
-  //return flag;
+    if(flag==0){
+        printf("Error : Invalid move \n");
+    }
+  return flag;
 }
 /*there are some cases about if he enter for example at start A2 to A1 so it will print repeat again because it wouldn't return any value*/
 // he must print error..................
 //for black
-void rock_black(char i1,int j1,char i2,int j2){
+int rock_black(char i1,int j1,char i2,int j2){
     int flag=0;
 //when the game start
     for(int k=1;k<=8;k++){
-        if((j1==k && i1==72)||(j1==k && i1==65)){
-                for(int i=1;i<8;i++){
-                    if(abs(j2-j1)==i  && i1==i2){
-                            flag=1;
-                            //break;
-                    }else if(abs(i1-i2)==i && j1==j2){
-                            flag=1;
-                            //break;
-                    }
-                }//when it is in any place at raw 1 to 8
-    }else if(j1==k&&(i1==65 ||i1==66||i1==67||i1==68||i1==69||i1==70||i1==71 ||i1==72) ){
+//when it is in any place at raw 1 to 8
+     if(j1==k&&(i1==65 ||i1==66||i1==67||i1==68||i1==69||i1==70||i1==71 ||i1==72) ){
         for(int i=1;i<8;i++){
             if(abs(j2-j1)==i && i1==i2){
                 flag=1;
-                //break;
+               // break;
             }else if(abs(i1-i2)==i && j1==j2){
                 flag=1;
-                //break;
+               // break;
             }
         }
-    }else{
-    printf("Error");//return flag;
-        }
     }
+    }
+    if(flag==0){
+        printf("Error : Invalid move \n");
+    }
+        return flag;
 }
 //we will change all alpha char to numbers (integers)
 void bishop_black(char i1,int j1,char i2,int j2){
@@ -210,11 +205,11 @@ void knight(char i1,int j1,char i2,int j2){
     int flag=0;
     //we must reject the element when it out put the board
     for(int k=1;k<=8;k++){
-        if((j1==k &&( i1==65|| i1==66|| i1==67|| i1==68|| i1==69|| i1==70|| i1==71| i1==72)){
+        if((j1==k &&( i1==65|| i1==66|| i1==67|| i1==68|| i1==69|| i1==70|| i1==71| i1==72))){
             if(abs(j2-j1)==2 && (abs((int)i2-(int)i1)==1)){
                 flag=1;
                 //break;
-            }else if((abs((int)i2-(int)i1)==2 && abs(j2-j1)==1){
+            }else if((abs((int)i2-(int)i1)==2 && abs(j2-j1)==1)){
                      flag=1;
                      //break;
                      }
