@@ -6,6 +6,7 @@
 #include "printing.h"
 #include "Functions_of_element.h"
 #include <windows.h>
+#include<conio.h>
 
 int main()
 {
@@ -21,12 +22,36 @@ int main()
         clrscr();
         print_board(pieces);
         for(int i =0 ;i<20;i++){
+            int z=whose_turn(i);
             r_scan=scan_move();
-           int e=pawns_black(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
+            int e=0;
+            if(text_check){
+                  e=first_check(pieces[(r_scan.num[0]-1)][(int)(r_scan.letter[0]-'A')].print,pieces[(r_scan.num[0]-1)][(int)(r_scan.letter[0]-'A')].color,z,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
+            }
             if(e && text_check/*for boundaries */){
                 move_pieces(pieces,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
                 print_board(pieces);
             }
+            else{
+                while(!e){
+                    Sleep(800);
+                    clrscr();
+                    print_board(pieces);
+                    red();
+                    printf("Try Again,Please\n");
+                    reset();
+                     r_scan=scan_move();
+                     if(text_check){
+                        e=first_check(pieces[(r_scan.num[0]-1)][(int)(r_scan.letter[0]-'A')].print,pieces[(r_scan.num[0]-1)][(int)(r_scan.letter[0]-'A')].color,z,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
+                     }
+                }
+                if(e==1){
+                     move_pieces(pieces,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
+                    print_board(pieces);
+                }
+
+            }
+
         }
 
 

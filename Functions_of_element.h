@@ -21,12 +21,42 @@ else if((j1==3||j1==4||j1==5||j1==6||j1==7) && (j2-j1)==1 && i1==i2){
         flag=0;
     }
     if(flag==0){
+            red();
         printf("Error : Invalid move \n");
+    reset();
     }
   return flag;
 }
 /*there are some cases about if he enter for example at start A2 to A1 so it will print repeat again because it wouldn't return any value*/
 // he must print error..................
+int pawns_white(char i2,int j2,char i1,int j1){
+int flag=0;
+/*check The move of pawns at starting game*/
+// why upper......................
+if((j1==7) &&(i1==65||i1==66||i1==67||i1==68||i1==69||i1==70||i1==71||i1==72)){
+    if(((j2-j1)==1)||((j2-j1)==2) && i1==i2){
+        flag=1;
+    }}
+/*check if the move not from stat*/
+else if((j1==3||j1==4||j1==5||j1==6||j1==2) && (j2-j1)==1 && i1==i2){
+            /*if(j2==1){
+                change it with any piece like king or >>
+            }*/
+    flag=1;
+    }
+    /*if not be the move of pawns*/
+    else{
+        flag=0;
+    }
+    if(flag==0){
+            red();
+        printf("Error : Invalid move \n");
+    reset();
+    }
+  return flag;
+}
+//end of pawns without eating
+
 //for black
 int rock_black(char i1,int j1,char i2,int j2){
     int flag=0;
@@ -46,7 +76,9 @@ int rock_black(char i1,int j1,char i2,int j2){
     }
     }
     if(flag==0){
+            red();
         printf("Error : Invalid move \n");
+    reset();
     }
         return flag;
 }
@@ -66,7 +98,9 @@ int flag=0;
     }
     }
         if(flag==0){
+                red();
         printf("Error : Invalid move \n");
+        reset();
     }
         return flag;
 }
@@ -92,7 +126,9 @@ int king(char i1,int j1,char i2,int j2){
             }
         }
     }        if(flag==0){
+        red();
         printf("Error : Invalid move \n");
+        reset();
     }
         return flag;
 }//queen is a rook + bishop
@@ -116,7 +152,9 @@ int flag=0;
     }
     }
         if(flag==0){
+                red();
         printf("Error : Invalid move \n");
+        reset();
     }
         return flag;
 
@@ -138,7 +176,9 @@ int knight(char i1,int j1,char i2,int j2){
                 }
         }
     }        if(flag==0){
+        red();
         printf("Error : Invalid move \n");
+        reset();
     }
         return flag;
 }
