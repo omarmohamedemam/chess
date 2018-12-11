@@ -51,61 +51,26 @@ int rock_black(char i1,int j1,char i2,int j2){
         return flag;
 }
 //we will change all alpha char to numbers (integers)
-void bishop_black(char i1,int j1,char i2,int j2){
+int bishop_black(char i1,int j1,char i2,int j2){
 //at start
 int flag=0;
     for(int k=1;k<=8;k++){
-        if(j1==k&&(i1==70 || i1==67)){
-            for(int i=1;i<3;i++){
+        if(j1==k&&(i1==65 || i1==66||i1==67||i1==68||i1==69 || i1==70||i1==71|| i1==72)){
+            for(int i=1;i<8;i++){
                 if(abs(j2-j1)==i && abs((int)i2-(int)i1)==i){
                         flag=1;
                         //break;
                 }
             }
-            for(int i=1;i<6;i++){
-                if((j1-j2) == i&&((int)i1-(int)i2)==i){
-                    flag=1;
-                    //break;
-                    }
-                }
-    }else if(j1==k && (i1==65 || i1==72)){
-            for(int i=1;i<(8);i++){
-                if(abs(j2-j1)==i && abs((int)i2-(int)i1)==i){
-                    flag=1;
-                    //break;
-                }
-            }
-    }else if(j1==k &&(i1==66||i1==71)){
-            if(abs(j2-j1)==1 && abs((int)i2-(int)i1)==1){
-                flag=1;
-                //break;
-            }else{
-                for(int i=1;i<7;i++){
-                    if(abs(j2-j1)==i && abs((int)i2-(int)i1)==i){
-                        flag=1;
-                        //break;
-                        }
-                    }
-                }
-    }else if(j1==k &&(i1==68||i1==69)){
-        for(int i=1;i<4;i++){
-            if(abs(j2-j1)==i && abs((int)i2-(int)i1)==i){
-                flag=1;
-                //break;
-            }
-        }
-        for(int i=1;i<5;i++){
-            if(abs(j2-j1)==i && abs((int)i2-(int)i1)==i){
-                flag=1;
-                //break;
-            }
-        }
-    }else{
-        printf("Error");
-        }
+
     }
+    }
+        if(flag==0){
+        printf("Error : Invalid move \n");
+    }
+        return flag;
 }
-void king(char i1,int j1,char i2,int j2){
+int king(char i1,int j1,char i2,int j2){
     int flag=0;
     for(int k=1;k<=8;k++){
         if(j1==k){
@@ -115,93 +80,49 @@ void king(char i1,int j1,char i2,int j2){
             }else if(abs(j2-j1)==1 && i1==i2){
                         flag=1;
                         //break;
-            }else if(abs((int)i2-(int)i1==1)&&j1==j2){
+            }else if(abs((int)i2-(int)i1)==1&&j1==j2){
                         flag=1;
                         //break;
-            }else{
-                flag=0;
-                printf("Error");
+            }else {
+                if(abs(j2-j1)==1 &&abs((int)i2-(int)i1)==1){
+                        flag=1;
+                        //break;
                 }
+
+            }
         }
+    }        if(flag==0){
+        printf("Error : Invalid move \n");
     }
+        return flag;
 }//queen is a rook + bishop
-void queen(char i1,int j1,char i2,int j2){
-   int flag=0;
+int queen(char i1,int j1,char i2,int j2){
+int flag=0;
     for(int k=1;k<=8;k++){
-        if((j1==k && i1==72)||(j1==k && i1==65)){
-                for(int i=1;i<8;i++){
-                    if(abs(j2-j1)==i  && i1==i2){
-                            flag=1;
-                            //break;
-                    }else if(abs(i1-i2)==i && j1==j2){
-                            flag=1;
-                            //break;
-                    }
-                }
-    }else if(j1==k&&(i1==65 ||i1==66||i1==67||i1==68||i1==69||i1==70||i1==71 ||i1==72) ){
+        if(j1==k &&(i1==65 || i1==66||i1==67||i1==68||i1==69 || i1==70||i1==71|| i1==72)){
             for(int i=1;i<8;i++){
-                if(abs(j2-j1)==i&& i1==i2){
-                        flag=1;
-                        //break;
-                }else if(abs(i1-i2)==i && j1==j2){
-                        flag=1;
-                        //break;
-                }
-            }
-    }else if(j1==k&&(i1==67 || i1==70)){
-            for(int i=1;i<3;i++){
-                if(abs(j2-j1)==i && abs((int)i2-(int)i1)==2){
-                        flag=1;
-                        //break;
-                }
-            }
-            for(int i=1;i<6;i++){
-                if((j1-j2) == i&&((int)i1-(int)i2)==i){
-                        flag=1;
-                        //break;
-                }
-            }
-
-    }else if(j1==k && (i1==65 || i1==72)){
-        for(int i=1;i<(8);i++){
-            if(abs(j2-j1)==i && abs((int)i2-(int)i1)==i){
-                flag=1;
-                //break;
-            }
-        }
-
-    }else if(j1==k &&(i1==66||i1==71)){
-        if(abs(j2-j1)==1 && abs((int)i2-(int)i1)==1){
-            flag=1;
-            //break;
-        }else{
-            for(int i=1;i<7;i++){
                 if(abs(j2-j1)==i && abs((int)i2-(int)i1)==i){
+                        flag=1;
+                        //break;
+                }else if(abs(j2-j1)==i && i1==i2){
                     flag=1;
-                    //break;
-                    }
+                // break;
+                }else if(abs(i1-i2)==i && j1==j2){
+                    flag=1;
+                // break;
                 }
             }
-    }else if(j1==k &&(i1==68||i1==69)){
-        for(int i=1;i<4;i++){
-            if(abs(j2-j1)==i && abs((int)i2-(int)i1)==i){
-                flag=1;
-                //break;
-            }
-        }
-        for(int i=1;i<5;i++){
-            if(abs(j2-j1)==i && abs((int)i2-(int)i1)==i){
-                    flag=1;
-                    //break;
-            }
-        }
-    }else{
-    printf("Error");
+
     }
-}
+    }
+        if(flag==0){
+        printf("Error : Invalid move \n");
+    }
+        return flag;
+
 
 }// i wish u to revise it :/
-void knight(char i1,int j1,char i2,int j2){
+int knight(char i1,int j1,char i2,int j2){
     int flag=0;
     //we must reject the element when it out put the board
     for(int k=1;k<=8;k++){
@@ -209,17 +130,16 @@ void knight(char i1,int j1,char i2,int j2){
             if(abs(j2-j1)==2 && (abs((int)i2-(int)i1)==1)){
                 flag=1;
                 //break;
-            }else if((abs((int)i2-(int)i1)==2 && abs(j2-j1)==1)){
+            }else{
+                 if((abs((int)i2-(int)i1)==2 && abs(j2-j1)==1)){
                      flag=1;
                      //break;
                      }
-        }else{
-
-            flag=0;
-            printf("Error");
-
+                }
         }
-
+    }        if(flag==0){
+        printf("Error : Invalid move \n");
     }
+        return flag;
 }
 #endif // FUNCTIONS_OF_ELEMENT_H_INCLUDED
