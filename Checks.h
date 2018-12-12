@@ -1,5 +1,7 @@
 #ifndef CHECKS_H_INCLUDED
 #define CHECKS_H_INCLUDED
+//مبداياً 
+//there are some mistakes we will fix again 
 int check(struct board_str e[8][8],char a,int b,char c,int d){
         int flag=0,q;
         int w=c-'A';
