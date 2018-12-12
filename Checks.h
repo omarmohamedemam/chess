@@ -13,13 +13,9 @@ int check(struct board_str e[8][8],char a,int b,char c,int d){
         e[z][x].color
       //for pawns
         if(e[v][w].print==' ' ||(e[v][w].color!= e[z][x].color)){
-            for(int i=z;i<v ;i++){//check the way for row
-                if(e[i][x].print!=' '){
                    q= pawns_black();
                 }
-            }
-
-        }
+        
 
     //for rook
             if(e[v][w].print==' ' ||(e[v][w].color!= e[z][x].color)){
