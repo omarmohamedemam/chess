@@ -43,6 +43,11 @@ int main()
                   e=first_check(pieces[(r_scan.num[0]-1)][(int)(r_scan.letter[0]-'A')].print,pieces[(r_scan.num[0]-1)][(int)(r_scan.letter[0]-'A')].color,pieces[(r_scan.num[1]-1)][(int)(r_scan.letter[1]-'A')].color,z,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
                   p=check_promo(pieces[(r_scan.num[0]-1)][(int)(r_scan.letter[0]-'A')].print,pieces[(r_scan.num[0]-1)][(int)(r_scan.letter[0]-'A')].color,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
                   w=check(pieces,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1],pieces[(r_scan.num[0]-1)][(int)(r_scan.letter[0]-'A')].print);
+                      if(w==0){
+                            red();
+                            printf("Error : Invalid move Some Thing Block Your Way \n");
+                            reset();
+                        }
             }
             if(e && text_check && w/*for boundaries */){
                 move_pieces(pieces,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);

@@ -32,6 +32,10 @@ struct s_text {      //scanned text structure
     char letter[3];
 
 };
+struct saved_place{
+    int s_num;
+    char s_ch;
+};
 //---------------------------------------------------------------------------------------------------------------------------
 
 

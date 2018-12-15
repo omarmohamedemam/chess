@@ -282,11 +282,6 @@ int check(struct board_str e[8][8],char i1,int j1,char i2,int j2,char r){
                 }
     }
 
-    if(flag==0){
-        red();
-        printf("Error : Invalid move Some Thing Block Your Way \n");
-        reset();
-    }
 return flag;
 }
 //-----------------------------------------------------------------------
