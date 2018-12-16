@@ -46,7 +46,7 @@ int king_place(struct board_str a[8][8],char kind,char colors,int turn){
                                      a1=eat||x;
                                     break;
                             }
-                            int b1 =int check(a,f_ch,f_num,y1,x,a[i][j].print);
+                            int b1 =int check(a,f_ch,f_num,y1,x1,a[i][j].print);
                             if(b1 && a1){
                                 save[s_count].s_ch=f_ch;
                                 save[s_count].s_num=f_num;
@@ -69,7 +69,7 @@ int king_place(struct board_str a[8][8],char kind,char colors,int turn){
             for(int i=0;i<8;i++){
                 for(int j=0;j<8;j++){
                     if(a[i][j].print='k'){
-                        x=i,y=j;
+                        x1=i,y1=j;
 
                     }
                 }
