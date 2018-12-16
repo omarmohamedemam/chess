@@ -2,7 +2,7 @@
 #define CHECKMATE_H_INCLUDED
 int eat;
 int king_place(struct board_str a[8][8],char kind,char colors,int turn){
-    struct saved_place save [16];;
+    struct saved_place save [16];
     int s_count=0;
     int x1,y1;
     int a1;
