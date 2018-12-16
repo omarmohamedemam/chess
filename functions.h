@@ -11,9 +11,9 @@ int undo_counter=0;// count save game times
 int un=0;// if undo is done or not
 int happen=0;// count undo happened
 int pro_un;// if there are promotion of undo
-int eat;
-int pawn=1;
-int text_check;
+int eat;// if the pawn going to eat or not
+int pawn=1; //revers of eat
+int text_check; //right text input
 char black_lost[16]={                };
 char white_lost[16]={                };
 int t=0;//black lost counter
@@ -32,6 +32,7 @@ void clrscr()
     system("@cls||clear");
 }
 //------------------------------------------------------------------------------------------
+// scan the input and contribute it as the different input
  struct s_text scan_move(struct board_str e[8][8]){
      struct s_text scan;
     printf("\t\t\tEnter your movement:");
@@ -77,6 +78,7 @@ void clrscr()
             flag=0;
         }
     }else if (strlen(t)==5){
+        //promotion case
         if(t[0]==t[2]){
             b[0]=t[0];
             a[0]=(int)t[1]-48;
@@ -96,6 +98,7 @@ void clrscr()
              if( b[0]>64 && b[0]<73 && b[1]>64 && b[1]<73 && a[0]>0 && a[0]<9 &&  a[1]>0 && a[1]<9 ){
                 flag=1;
             }
+            //moving to the out put
     if(flag==1 ){
        for(int i=0 ;i<2;i++){
             scan.num[i]=a[i];
@@ -115,6 +118,7 @@ void clrscr()
     }
 }
 //-------------------------------------------------------------------------------------------------
+//move pieces and its all values
 struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d){
         int w=c-'A';
         int v=d-1;
@@ -148,6 +152,7 @@ struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d)
         return e[8][8];
 }
 //----------------------------------------------------------------------------------------------------
+//give the value of turn 0 for the white and 1 for the black
 int whose_turn(int counter){
     int a;
     printf("\t\t\tThis is:");
@@ -165,7 +170,8 @@ int whose_turn(int counter){
     return a;
 }
 //------------------------------------------------------------------------------------------------------
-int first_check(char kind,char colors,char colore,int color,char i1,int j1,char i2,int j2){
+//takes the move and check if it's your turn or not the send you to your function in functions-of_elements.h
+int element_check(char kind,char colors,char colore,int color,char i1,int j1,char i2,int j2){
     int a;
     int w,v,x,z;
     if((colors=='b' && color==1 )||(colors=='w' && color==0)){
@@ -180,7 +186,7 @@ int first_check(char kind,char colors,char colore,int color,char i1,int j1,char 
                     break;
                 case('B'):
                 case('b'):
-                    a=bishop_black(i1,j1,i2,j2);
+                    a=bishop(i1,j1,i2,j2);
                     break;
                 case('K'):
                 case('k'):
@@ -213,6 +219,7 @@ return a;
 
 }
 //------------------------------------------------------------------------
+//keep the turn printed on
 void fixed_turn(int a){
     if(a%2==0){
         yellow();
@@ -225,6 +232,8 @@ void fixed_turn(int a){
         reset();
     }
 }
+//----------------------------------------------------------------------------
+//make the promotion
 void make_promo(struct board_str e[8][8],char i2,int j2,char n){
     if(j2==8){
         e[j2-1][((int)i2-'A')].print=toupper(n);
@@ -237,6 +246,8 @@ void make_promo(struct board_str e[8][8],char i2,int j2,char n){
     reset();
     Sleep(500);
 }
+//------------------------------------------------------------------
+//saves every move
 int save_move(char i1,int j1,char i2,int j2,int promo){
     undo[undo_counter].letter[0]=i1;
     undo[undo_counter].letter[1]=i2;
@@ -250,6 +261,5 @@ int save_move(char i1,int j1,char i2,int j2,int promo){
     return 0;
 
 }
-
-
+//------------------------------------------------------------------------------
 #endif // FUNCTIONS_H_INCLUDED

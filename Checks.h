@@ -1,6 +1,8 @@
 #ifndef CHECKS_H_INCLUDED
 #define CHECKS_H_INCLUDED
-int check(struct board_str e[8][8],char i1,int j1,char i2,int j2,char r){
+int eat;// if the pawn going to eat or not
+//check the way of move is free or not and the next cell also
+int way_check(struct board_str e[8][8],char i1,int j1,char i2,int j2,char r){
         int flag=0;
         int w=i2-'A';
         int v=j2-1;
@@ -8,7 +10,7 @@ int check(struct board_str e[8][8],char i1,int j1,char i2,int j2,char r){
         int z=j1-1;
       //for pawns
       if(r=='p'||r=='P'){
-                if(e[v][w].print==' ' ||(e[v][w].color!= e[z][x].color)){
+                if(e[v][w].print==' '){
            if(v>z && v-z>1){
                 for(int i=z+1;i<v ;i++){//check the way for row (if he want to go to second row we must check way )
                     if(e[i][x].print==' '){
@@ -37,7 +39,10 @@ int check(struct board_str e[8][8],char i1,int j1,char i2,int j2,char r){
 
 
         }
-
+        else if((e[v][w].color!= e[z][x].color)&& (e[v][w].print!=' ') && eat)
+            if( abs(v-z)==1){
+                flag=1;
+           }
       }
 
 
@@ -285,6 +290,7 @@ int check(struct board_str e[8][8],char i1,int j1,char i2,int j2,char r){
 return flag;
 }
 //-----------------------------------------------------------------------
+//checking the special move  for the pawn
 int check_eat(char a,char b){
   int flag=0;
   if(a=='b'&&b=='w'){
@@ -300,6 +306,8 @@ int check_eat(char a,char b){
     }
     return flag;
 }
+//----------------------------------------------------------------------+
+//checking the promotion case
 int check_promo(char kind , char colore,char i1,int j1,char i2,int j2){
     int flag=0;
     if((i1==i2) && ((j2==1 && colore=='w')||(j2==8 && colore=='b')) && (kind=='p'||kind=='P')){
@@ -307,6 +315,6 @@ int check_promo(char kind , char colore,char i1,int j1,char i2,int j2){
     }
     return flag;
 }
-
+//--------------------------------------------------------------------------
 
 #endif // CHECKS_H_INCLUDED

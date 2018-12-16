@@ -1,6 +1,6 @@
 #ifndef INITIALIZE_H_INCLUDED
 #define INITIALIZE_H_INCLUDED
-
+//structure of board elements
 struct board_str{
 
     char print;// shape
@@ -9,6 +9,7 @@ struct board_str{
 
 };
 //------------------------------------------------------------------------------------------------------------------------
+//setting value for the board
  struct board_str first_time_board (struct board_str b[8][8]){
       struct board_str a[8][8]  = {{{'R',1,'b'},{'N',1,'b'},{'B',1,'b'},{'Q',1,'b'},{'K',1,'b'},{'B',1,'b'},{'N',1,'b'},{'R',1,'b'}},
                                    {{'P',1,'b'},{'P',1,'b'},{'P',1,'b'},{'P',1,'b'},{'P',1,'b'},{'P',1,'b'},{'P',1,'b'},{'P',1,'b'}},
@@ -32,6 +33,8 @@ struct s_text {      //scanned text structure
     char letter[3];
 
 };
+//----------------------------------------------------------------------------
+//structure for one place (a1) used in check mate
 struct saved_place{
     int s_num;
     char s_ch;

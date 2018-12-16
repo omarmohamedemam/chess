@@ -2,17 +2,19 @@
 #define PRINTING_H_INCLUDED
 #include<conio.h>
 #include <windows.h>
+//print text in red color
 void red () {
   printf("\033[1;31m");
 }
-
+//print text in yellow color
 void yellow (){
   printf("\033[1;33m");
 }
-
+//return to the default color
 void reset () {
   printf("\033[0m");
 }
+//-------------------------------------------------------------------
 //introduction function
 char intro (){
     char m;
@@ -46,6 +48,7 @@ char intro (){
 }
 //-------------------------------------------------------------------------------------------------------------------
 //printing board functions
+//very silly
 void print_board(struct board_str a[8][8]){
 
         printf("\n");

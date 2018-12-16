@@ -1,9 +1,11 @@
 #ifndef FUNCTIONS_OF_ELEMENT_H_INCLUDED
 #define FUNCTIONS_OF_ELEMENT_H_INCLUDED
 #include "functions.h"
-int eat;
-int pawn;
-// i1:is a character from A to h ,j1:is a number from 1 to 8 i think
+//the whole file only used in element_check function---------------------------------
+//************************************************************************
+int eat;// if the pawn going to eat or not
+int pawn; //revers of eat
+// i1:is a character from A to h ,j1:is a number from 1 to 8
 int  pawns_black(char i1,int j1,char i2,int j2){
 int flag=0;
 /*check The move of pawns at starting game*/
@@ -31,6 +33,7 @@ else if((j1==3||j1==4||j1==5||j1==6||j1==7) && (j2-j1)==1 && i1==i2){
     pawn=flag;
   return flag;
 }
+//--------------------------------------------------------------------------------------------------------------------
 /*there are some cases about if he enter for example at start A2 to A1 so it will print repeat again because it wouldn't return any value*/
 // he must print error..................
 int pawns_white(char i1,int j1,char i2,int j2){
@@ -61,7 +64,7 @@ else if((j1==3||j1==4||j1==5||j1==6||j1==2) && (j1-j2)==1 && i1==i2){
   return flag;
 }
 //end of pawns without eating
-
+//--------------------------------------------------------------------------------------------------------------
 //for black
 int rock_black(char i1,int j1,char i2,int j2){
     int flag=0;
@@ -87,8 +90,9 @@ int rock_black(char i1,int j1,char i2,int j2){
     }
         return flag;
 }
+//-----------------------------------------------------------------------------------------------
 //we will change all alpha char to numbers (integers)
-int bishop_black(char i1,int j1,char i2,int j2){
+int bishop(char i1,int j1,char i2,int j2){
 //at start
 int flag=0;
     for(int k=1;k<=8;k++){
@@ -109,6 +113,7 @@ int flag=0;
     }
         return flag;
 }
+//----------------------------------------------------------------------------------------------------
 int king(char i1,int j1,char i2,int j2){
     int flag=0;
     for(int k=1;k<=8;k++){
@@ -136,7 +141,9 @@ int king(char i1,int j1,char i2,int j2){
         reset();
     }
         return flag;
-}//queen is a rook + bishop
+}
+//-------------------------------------------------------------------------------------------------
+//queen is a rook + bishop
 int queen(char i1,int j1,char i2,int j2){
 int flag=0;
     for(int k=1;k<=8;k++){
@@ -164,7 +171,9 @@ int flag=0;
         return flag;
 
 
-}// i wish u to revise it :/
+}
+//---------------------------------------------------------------------------
+// i wish u to revise it :/
 int knight(char i1,int j1,char i2,int j2){
     int flag=0;
     //we must reject the element when it out put the board
@@ -187,6 +196,8 @@ int knight(char i1,int j1,char i2,int j2){
     }
         return flag;
 }
+//-----------------------------------------------------------------------------------
+//the special move for pawn when it eat
 int pawn_eat(char i1,int j1,char i2,int j2,char a, char b){
     int flag=0;
     if(abs(i1-i2)==1 && abs(j1-j2)==1){
@@ -205,4 +216,5 @@ int pawn_eat(char i1,int j1,char i2,int j2,char a, char b){
 
 
 }
+//--------------------------------------------------------------------------------------
 #endif // FUNCTIONS_OF_ELEMENT_H_INCLUDED
