@@ -4,18 +4,18 @@
 #include "functions.h"
 #define IF_ONE_EAT_AT_CHECK_H_INCLUDED
 
-int eat_@_checkmate(struct board_str a[8][8],struct saved_place save [16]){
+int eat_@_checkmate(struct board_str a[8][8],struct saved_place save [16]){//the place of opp.peace
         struct s_text m[16];
         int sb_count=0;
                 for(int i=0;i<8;i++){
                 for(int j=0;j<8;j++){
-                        for(int g=0;g<s_count;g++){
+                        for(int g=0;g<s_count;g++){//loop about all boundaries of opp peaces 
                         if(a[i][j].print !=' '&& a[i][j].color=='b'){
                                 int f_num=i+1;
                                 char f_ch=j+65;
                             switch(a[i][j].print){
-                                case('R')://from black piece to eat white piece
-                                    a1=rock_black_k(f_ch,f_num,save[g].s_ch,save[g].s_num);
+                                case('R')://check if black piece could be eaten from white piece
+                                    a1=rock_black_k(f_ch,f_num,save[g].s_ch,save[g].s_num);//place of white peace to black peace
                                     break;
                                 case('N'):
                                     a1=knight_k(f_ch,f_num,save[g].s_ch,save[g].s_num);
