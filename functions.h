@@ -87,6 +87,15 @@ void clrscr()
             b[2]=t[4];
             scan.letter[2]=b[2];
             un=0;
+        }else if(abs(t[0]-t[2])==1){
+            //this case for pawn which eat and also promotion
+            b[0]=t[0];
+            a[0]=(int)t[1]-48;
+            b[1]=t[2];
+            a[1]=(int)t[3]-48;
+            b[2]=t[4];
+            scan.letter[2]=b[2];
+            un=0;
         }
 
     }
