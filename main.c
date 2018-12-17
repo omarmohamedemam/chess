@@ -81,6 +81,7 @@ int main()
             //making the promotion and save it
                 if(promtoion_flag==1){
                     make_promo(pieces,r_scan.letter[1],r_scan.num[1],r_scan.letter[2]);
+
                 }
                 pro_un=save_move(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1],promtoion_flag);
             }
