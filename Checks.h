@@ -312,6 +312,9 @@ int check_promo(char kind , char colore,char i1,int j1,char i2,int j2){
     int flag=0;
     if((i1==i2) && ((j2==1 && colore=='w')||(j2==8 && colore=='b')) && (kind=='p'||kind=='P')){
         flag =1;
+    }//you forgot this case if pawn eat and promotion
+    else if(abs(i1-i2)==1 && abs(j2-j1)==1 &&((j2==1 && colore=='w')||(j2==8 && colore=='b')) && (kind=='p'||kind=='P')){
+    flag=1;
     }
     return flag;
 }
