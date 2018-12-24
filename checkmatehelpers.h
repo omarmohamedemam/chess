@@ -4,8 +4,10 @@
 #include "checkmate.h"
 int eat;// if the pawn going to eat or not
 int pawn; //revers of eat
-struct s_text expected_moves[100];//moves which will be compared at the end
-int expected_move_counter;// its counter
+struct s_text expected_moves_b[100];//moves which will be compared at the end
+int expected_move_counter_b;// its counter
+struct s_text expected_moves_w[100];//moves which will be compared at the end
+int expected_move_counter_w;// its counter
 //the same at function of elements put without error massage for checkmate
 //-------------------------------------------------------------------------
 int  pawns_black_k(char i1,int j1,char i2,int j2){
@@ -193,7 +195,7 @@ int pawn_eat_k(char i1,int j1,char i2,int j2,char a, char b){
 //-----------------------------------------------------------------------
 int x;//مش فاحاد ايه بس شكله حاك مهمة
 //function check if any element could eat the threat of white king
-void eat_test_while_white_under_threat(struct board_str a[8][8],struct saved_place save [16]){//the place of opp.peace
+void eat_test_while_black_under_threat(struct board_str a[8][8],struct saved_place save [16]){//the place of opp.peace
         struct s_text m[16];
         int a1;
         int eat_count=0;
@@ -212,9 +214,7 @@ void eat_test_while_white_under_threat(struct board_str a[8][8],struct saved_pla
                                 case('B'):
                                     a1=bishop_black_k(f_ch,f_num,save[0].s_ch,save[0].s_num);
                                     break;
-                                case('K'):
-                                    a1=king_k(f_ch,f_num,save[0].s_ch,save[0].s_num);
-                                    break;
+
                                 case('Q'):
                                     a1=queen_k(f_ch,f_num,save[0].s_ch,save[0].s_num);
                                     break;
@@ -226,11 +226,11 @@ void eat_test_while_white_under_threat(struct board_str a[8][8],struct saved_pla
                             }
                             int b1 =way_check(a,f_ch,f_num,save[0].s_ch,save[0].s_num,a[i][j].print);
                             if(b1 && a1){
-                                expected_moves[expected_move_counter].letter[0]=f_ch;
-                                expected_moves[expected_move_counter].num[0]=f_num;
-                                expected_moves[expected_move_counter].letter[1]=save[0].s_ch;
-                                expected_moves[expected_move_counter].num[1]=save[0].s_num;
-                                expected_move_counter++;
+                                expected_moves_b[expected_move_counter_b].letter[0]=f_ch;
+                                expected_moves_b[expected_move_counter_b].num[0]=f_num;
+                                expected_moves_b[expected_move_counter_b].letter[1]=save[0].s_ch;
+                                expected_moves_b[expected_move_counter_b].num[1]=save[0].s_num;
+                                expected_move_counter_b++;
                             }
                         }
                 }
@@ -239,7 +239,7 @@ void eat_test_while_white_under_threat(struct board_str a[8][8],struct saved_pla
 }
 //----------------------------------------------------------------------------------------------------------------
 //function check if any element could eat the threat of black king
-void eat_test_while_black_under_threat(struct board_str a[8][8],struct saved_place save [16]){//the place of opp.peace
+void eat_test_while_white_under_threat(struct board_str a[8][8],struct saved_place save [16]){//the place of opp.peace
     int a1;
         struct s_text m[16];
         int eat_count=0;
@@ -258,9 +258,6 @@ void eat_test_while_black_under_threat(struct board_str a[8][8],struct saved_pla
                                 case('b'):
                                     a1=bishop_black_k(f_ch,f_num,save[0].s_ch,save[0].s_num);
                                     break;
-                                case('k'):
-                                    a1=king_k(f_ch,f_num,save[0].s_ch,save[0].s_num);
-                                    break;
                                 case('q'):
                                     a1=queen_k(f_ch,f_num,save[0].s_ch,save[0].s_num);
                                     break;
@@ -272,17 +269,260 @@ void eat_test_while_black_under_threat(struct board_str a[8][8],struct saved_pla
                             }
                             int b1 = way_check(a,f_ch,f_num,save[0].s_ch,save[0].s_num,a[i][j].print);
                            if(b1 && a1){
-                                expected_moves[expected_move_counter].letter[0]=f_ch;
-                                expected_moves[expected_move_counter].num[0]=f_num;
-                                expected_moves[expected_move_counter].letter[1]=save[0].s_ch;
-                                expected_moves[expected_move_counter].num[1]=save[0].s_num;
-                                expected_move_counter++;
+                                expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
+                                expected_moves_w[expected_move_counter_w].num[0]=f_num;
+                                expected_moves_w[expected_move_counter_w].letter[1]=save[0].s_ch;
+                                expected_moves_w[expected_move_counter_w].num[1]=save[0].s_num;
+                                expected_move_counter_w++;
                             }
-                        }
+
                 }
             }
-
+                }
+            if(eat_count>0){
             return  m[eat_count];
+        }
+
 }
+
 //----------------------------------------------------------------------------------------------
+void white_king_move(struct board_str a[8][8],char xx, int yy){
+    int m,n;
+    int m_end,n_end;
+    // to handle all special positions for the king
+    if(xx=='A'&&yy==1){
+        m=0;
+        n=0;
+        m_end=1;
+        n_end=1;
+    }
+    else if(xx=='H'&&yy==1){
+        m=-1;
+        n=0;
+        m_end=0;
+        n_end=1;
+    }
+    else if(xx=='A'&&yy==8){
+        m=1;
+        n=-1;
+        m_end=1;
+        n_end=0;
+    }
+    else if(xx=='H'&&yy==8){
+        m=-1;
+        n=-1;
+        m_end=0;
+        n_end=0;
+    }
+    else if(xx=='A'&&yy>1&&yy<8){
+        m=0;
+        n=-1;
+        m_end=1;
+        n_end=1;
+    }
+    else if(xx>'A'&&xx<'H'&&yy==1){
+        m=-1;
+        n=0;
+        m_end=1;
+        n_end=1;
+    }
+    else {
+        m=-1;
+        n=-1;
+        m_end=1;
+        n_end=1;
+    }
+    //king moves
+    for(int mm=m;mm<=m_end;m++){
+        for(int nn=n;nn<=n_end;n++){
+                int to_num =yy+nn;
+                char to_ch =xx+mm;
+            //available move
+            int t =way_check(a,xx,yy,to_ch,to_num,'k');
+            int a1;
+            if(t==1){
+                    char sw =a[to_num-1][to_ch-65].color;
+                    a[to_num-1][to_ch-65].color ='w';
+
+                    //find who could eat him
+                for(int i=0;i<8;i++){
+                    for(int j=0;j<8;j++){
+                            if(a[i][j].print !=' '&& a[i][j].color=='b'){
+                                    int f_num=i+1;
+                                    char f_ch=j+65;
+                                switch(a[i][j].print){
+                                    case('R'):
+                                        a1=rock_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('N'):
+                                        a1=knight_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('B'):
+                                        a1=bishop_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('K'):
+                                        a1=king_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('Q'):
+                                        a1=queen_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('P'):
+                                        eat=pawn_eat_k(f_ch,f_num,to_ch,to_num,a[i][j].color,'w');
+                                         x=pawns_white_k(f_ch,f_num,to_ch,to_num);
+                                         a1=eat||x;
+                                        break;
+                                }
+                                int b1 = way_check(a,f_ch,f_num,to_ch,to_num,a[i][j].print);
+            // if no one save move
+                                if(a1&& b1){
+                                     expected_moves_w[expected_move_counter_w].letter[0]=xx;
+                                    expected_moves_w[expected_move_counter_w].num[0]=yy;
+                                    expected_moves_w[expected_move_counter_w].letter[1]=to_ch;
+                                    expected_moves_w[expected_move_counter_w].num[1]=to_num;
+                                    expected_move_counter_w++;
+                                }
+                        }
+                    }
+                }
+            a[to_num-1][to_ch-65].color=sw;
+            }
+        }
+    }
+
+
+}
+//-----------------------------------------------------------------------------------------
+void black_king_move(struct board_str a[8][8],char xx, int yy){
+    int m,n;
+    int m_end,n_end;
+    // to handle all special positions for the king
+    if(xx=='A'&&yy==1){
+        m=0;
+        n=0;
+        m_end=1;
+        n_end=1;
+    }
+    else if(xx=='H'&&yy==1){
+        m=-1;
+        n=0;
+        m_end=0;
+        n_end=1;
+    }
+    else if(xx=='A'&&yy==8){
+        m=1;
+        n=-1;
+        m_end=1;
+        n_end=0;
+    }
+    else if(xx=='H'&&yy==8){
+        m=-1;
+        n=-1;
+        m_end=0;
+        n_end=0;
+    }
+    else if(xx=='A'&&yy>1&&yy<8){
+        m=0;
+        n=-1;
+        m_end=1;
+        n_end=1;
+    }
+    else if(xx>'A'&&xx<'H'&&yy==1){
+        m=-1;
+        n=0;
+        m_end=1;
+        n_end=1;
+    }
+    else {
+        m=-1;
+        n=-1;
+        m_end=1;
+        n_end=1;
+    }
+    int e_count=0;
+    //king moves
+    for( int mm=m;mm<=m_end;mm++){
+        for(int nn=n;nn<=n_end;nn++){
+                int to_num =yy+nn;
+                char to_ch =xx+mm;
+            //available move
+            int t =way_check(a,xx,yy,to_ch,to_num,'K');
+            int a1;
+            if(t==1){
+                    char sw =a[to_num-1][to_ch-65].color;
+                    a[to_num-1][to_ch-65].color ='b';
+                    //find who could eat him
+                for(int i=0;i<8;i++){
+                    for(int j=0;j<8;j++){
+                            if(a[i][j].print !=' '&& a[i][j].color=='w'){
+                                    int f_num=i+1;
+                                    char f_ch=j+65;
+                                switch(a[i][j].print){
+                                    case('r'):
+                                        a1=rock_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('n'):
+                                        a1=knight_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('b'):
+                                        a1=bishop_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('k'):
+                                        a1=king_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('q'):
+                                        a1=queen_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('p'):
+                                        eat=pawn_eat_k(f_ch,f_num,to_ch,to_num,a[i][j].color,'b');
+                                         x=pawns_white_k(f_ch,f_num,to_ch,to_num);
+                                         a1=eat||x;
+                                        break;
+                                }
+                                int b1 = way_check(a,f_ch,f_num,to_ch,to_num,a[i][j].print);
+            // if no one save move
+                                if(a1&& b1){
+                                     e_count++;
+
+
+                                }
+                                a[to_num-1][to_ch-65].color=sw;
+                        }
+                    }
+                }
+                if(e_count==0){
+                    expected_moves_b[expected_move_counter_b].letter[0]=xx;
+                    expected_moves_b[expected_move_counter_b].num[0]=yy;
+                    expected_moves_b[expected_move_counter_b].letter[1]=to_ch;
+                    expected_moves_b[expected_move_counter_b].num[1]=to_num;
+                    expected_move_counter_b++;
+                }
+            }
+        }
+    }
+
+
+}
+//-----------------------------------------------------------------
+int compare_b(struct s_text input){
+    int a=0;
+    for(int i=0;i<expected_move_counter_b;i++){
+        if(input.letter[0]==expected_moves_b[i].letter[0] && input.letter[1]==expected_moves_b[i].letter[1] && input.num[0]== expected_moves_b[i].num[0] && input.num[1]== expected_moves_b[i].num[1]){
+            a=1;
+            break;
+        }
+    }
+    return a;
+}
+int compare_w(struct s_text input){
+    int a=0;
+    for(int i=0;i<expected_move_counter_w;i++){
+        if(input.letter[0]==expected_moves_w[i].letter[0] && input.letter[1]==expected_moves_w[i].letter[1] && input.num[0]== expected_moves_w[i].num[0] && input.num[1]== expected_moves_w[i].num[1]){
+            a=1;
+            break;
+        }
+    }
+    return a;
+}
+//------------------------------------------------------------------------
+
 #endif // CHECKMATEHELPERS_H_INCLUDED
