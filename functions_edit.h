@@ -9,6 +9,7 @@
 //int undo_counter=0;
 int promtoion_flag;
 int redo=0;
+int redo1=0;
 int sp;
 int undo_counter;
 int pro_counter;
@@ -29,8 +30,8 @@ int undos=0;
 int undos1=0;
 int b_lost=0;//black lost counter
 int w_lost=0;//white lost counter
-char cl;
 char promd;
+
 struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d);
 
 void gotoxy(int x, int y) {
@@ -69,7 +70,7 @@ void clrscr()
                             promtoion_flag=1;
                             pro_counter--;
                         }
-                    if(cl=='w'){
+                    //here we compare if white eaten piece has the same value of undo ? if yes we can go here
                         if(s_p[sp-1].letter[1]==undo[undo_counter-1].letter[1] && s_p[sp-1].num[1]== undo[undo_counter-1].num[1]&&s_p[sp-1].letter[0]==undo[undo_counter-1].letter[0] && s_p[sp-1].num[0]== undo[undo_counter-1].num[0]){
                                       undos=1;
                                       move_pieces(e,undo[undo_counter-1].letter[1],undo[undo_counter-1].num[1],undo[undo_counter-1].letter[0],undo[undo_counter-1].num[0]);
@@ -77,10 +78,10 @@ void clrscr()
                                     sp--;
                                         happen++;
                                         un=1;
-                                         cl=' ';
-                              }
+                                      //   cl=' ';
 
-                      }  else  if (cl=='b'){
+
+                      }  else  //if black eaten has the same value of undo >> here.
                               if (s_p_1[sp_1-1].letter[1]==undo[undo_counter-1].letter[1] && s_p_1[sp_1-1].num[1]== undo[undo_counter-1].num[1]&&s_p_1[sp_1-1].letter[0]==undo[undo_counter-1].letter[0] && s_p_1[sp_1-1].num[0]== undo[undo_counter-1].num[0]){
                                         undos=1;
                                       move_pieces(e,undo[undo_counter-1].letter[1],undo[undo_counter-1].num[1],undo[undo_counter-1].letter[0],undo[undo_counter-1].num[0]);
@@ -88,8 +89,8 @@ void clrscr()
                                     sp_1--;
                                         happen++;
                                         un=1;
-                                        cl=' ';
-                                }
+                                       // cl=' ';
+                               // }
 
 
                     }
@@ -97,6 +98,7 @@ void clrscr()
                             undos=1;
                             move_pieces(e,undo[undo_counter-1].letter[1],undo[undo_counter-1].num[1],undo[undo_counter-1].letter[0],undo[undo_counter-1].num[0]);
                             undo_counter--;
+                            happen++;
                             un=1;
                         }
                         else{
@@ -106,6 +108,43 @@ void clrscr()
                                 happen++;
                                 un=1;
                         }
+                 /*   if(undo_counter==0){//if he press u and dont reach to steady state
+                        for(int j=0;j<happen;j++){
+                         undo[j].letter[0]=0;
+                         undo[j].num[0]=0;
+                         undo[j].letter[1]=0;
+                         undo[j].num[1]=0;
+                         s_p[j].letter[0]=0;
+                         s_p[j].num[0]=0;
+                         s_p[j].letter[1]=0;
+                         s_p[j].num[1]=0;
+                         s_p_1[j].letter[0]=0;
+                         s_p_1[j].num[0]=0;
+                         s_p_1[j].letter[1]=0;
+                         s_p_1[j].num[1]=0;
+                         white_lost[j];
+                         black_lost[j];
+                    }
+                    sp=0,sp_1=0,w_lost=0,b_lost=0;
+                 }*/
+            }else if(undo_counter==0 ){ // after he reach to steady state.
+                    for(int j=0;j<happen;j++){
+                         undo[j].letter[0]=0;
+                         undo[j].num[0]=0;
+                         undo[j].letter[1]=0;
+                         undo[j].num[1]=0;
+                         s_p[j].letter[0]=0;
+                         s_p[j].num[0]=0;
+                         s_p[j].letter[1]=0;
+                         s_p[j].num[1]=0;
+                         s_p_1[j].letter[0]=0;
+                         s_p_1[j].num[0]=0;
+                         s_p_1[j].letter[1]=0;
+                         s_p_1[j].num[1]=0;
+                         white_lost[j];
+                         black_lost[j];
+                    }
+                    sp=0,sp_1=0,w_lost=0,b_lost=0;
                  }
 
         }
@@ -113,43 +152,39 @@ void clrscr()
                 if(happen>0){
                 if(pro_undo[pro_counter].letter[0]==undo[undo_counter].letter[0]&&pro_undo[pro_counter].num[0]==undo[undo_counter].num[0]&&pro_undo[pro_counter].letter[1]==undo[undo_counter].letter[1]&&pro_undo[pro_counter].num[1]==undo[undo_counter].num[1]){
                         promtoion_flag=1;
-                        sp_1++;
-                        printf("Enter The Promoted piece");
-                        scanf(" %c",&promd);
+                            redo=1;
 
                         pro_counter++;
                     }
-                   /* if(cl=='w'){
-                        if(s_p[sp-1].letter[1]==undo[undo_counter-1].letter[1] && s_p[sp-1].num[1]== undo[undo_counter-1].num[1]&&s_p[sp-1].letter[0]==undo[undo_counter-1].letter[0] && s_p[sp-1].num[0]== undo[undo_counter-1].num[0]){
-                                      undos=1;
-                                      move_pieces(e,undo[undo_counter-1].letter[1],undo[undo_counter-1].num[1],undo[undo_counter-1].letter[0],undo[undo_counter-1].num[0]);
-                                    undo_counter--;
-                                    sp--;
-                                        happen++;
+                        if(s_p[sp].letter[1]==undo[undo_counter].letter[1] && s_p[sp].num[1]== undo[undo_counter].num[1]&&s_p[sp].letter[0]==undo[undo_counter].letter[0] && s_p[sp].num[0]== undo[undo_counter].num[0]){
+                                      redo=1;
+                                      move_pieces(e,undo[undo_counter].letter[1],undo[undo_counter].num[1],undo[undo_counter].letter[0],undo[undo_counter].num[0]);
+                                    undo_counter++;
+                                    sp++;
+                                        happen--;
                                         un=1;
-                                         cl=' ';
-                              }
 
-                      }  else  if (cl=='b'){
-                              if (s_p_1[sp_1-1].letter[1]==undo[undo_counter-1].letter[1] && s_p_1[sp_1-1].num[1]== undo[undo_counter-1].num[1]&&s_p_1[sp_1-1].letter[0]==undo[undo_counter-1].letter[0] && s_p_1[sp_1-1].num[0]== undo[undo_counter-1].num[0]){
-                                        undos=1;
-                                      move_pieces(e,undo[undo_counter-1].letter[1],undo[undo_counter-1].num[1],undo[undo_counter-1].letter[0],undo[undo_counter-1].num[0]);
-                                    undo_counter--;
-                                    sp_1--;
-                                        happen++;
+
+                      }  else
+                              if (s_p_1[sp_1].letter[1]==undo[undo_counter].letter[1] && s_p_1[sp_1].num[1]== undo[undo_counter].num[1]&&s_p_1[sp_1].letter[0]==undo[undo_counter].letter[0] && s_p_1[sp_1].num[0]== undo[undo_counter].num[0]){
+                                        redo=1;
+                                      move_pieces(e,undo[undo_counter].letter[1],undo[undo_counter].num[1],undo[undo_counter].letter[0],undo[undo_counter].num[0]);
+                                    undo_counter++;
+                                    sp_1++;
+                                        happen--;
                                         un=1;
-                                        cl=' ';
-                                }
 
 
-                    }*/
+
+
+                    }else {
                     happen--;
-                        redo=1;
-                       // redo1=1;
+                        redo1=1;
                     undo_counter++;
                 move_pieces(e,undo[undo_counter-1].letter[0],undo[undo_counter-1].num[0],undo[undo_counter-1].letter[1],undo[undo_counter-1].num[1]);
 
                 }
+            }
                 else{
                     red();
                     printf("ERROR: You Must Do Undo To Be Able To Re-Do\n");
@@ -268,13 +303,14 @@ struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d)
                             e[v][w].color='b';
                             e[v][w].available=1;
                             }else {
-                            e[z][x].print=white_lost[b_lost-1];
+                            e[z][x].print=white_lost[w_lost-1];
                             e[z][x].color='w';
                             e[z][x].available=1;
                             e[v][w].print='P';
                             e[v][w].color='b';
                             e[v][w].available=1;
                             white_lost[w_lost-1]=' ';
+                            w_lost--;
                             }
 
                                 promtoion_flag=0;
@@ -296,41 +332,41 @@ struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d)
                             e[v][w].color='w';
                             e[v][w].available=1;
                             black_lost[b_lost-1]=' ';
+                            b_lost--;
                             }
                             promtoion_flag=0;
-       }else if(e[v][w].print!=' '&& e[z][x].color=='b'&& redo==1&&!promtoion_flag){
-                              white_lost[w_lost]=e[v][w].print;
-                              e[v][w].print=e[z][x].print;
-                              e[v][w].color= e[z][x].color;
-                              e[v][w].available= e[z][x].available;
-                              e[z][x].print=' ';
-                              e[z][x].color= 'n';
-                              e[z][x].available=0;
-                              w_lost++;
-                               sp++;
-                              cl='w';
        }else if(e[v][w].print!=' '&& e[z][x].color=='w'&& redo==1&&!promtoion_flag){
-                              black_lost[b_lost]=e[v][w].print;
-                              e[v][w].print=e[z][x].print;
-                              e[v][w].color= e[z][x].color;
-                              e[v][w].available= e[z][x].available;
-                              e[z][x].print=' ';
-                              e[z][x].color= 'n';
-                              e[z][x].available=0;
+                              white_lost[w_lost]=e[z][x].print;
+                              e[z][x].print=e[v][w].print;
+                              e[z][x].color= e[v][w].color;
+                              e[z][x].available= e[v][w].available;
+                              e[v][w].print=' ';
+                              e[v][w].color= 'n';
+                              e[v][w].available=0;
+                              w_lost++;
+                              // sp++;
+       }else if(e[v][w].print!=' '&& e[z][x].color=='b'&& redo==1&&!promtoion_flag){
+                              black_lost[b_lost]=e[z][x].print;
+                              e[z][x].print=e[v][w].print;
+                              e[z][x].color= e[v][w].color;
+                              e[z][x].available= e[v][w].available;
+                              e[v][w].print=' ';
+                              e[v][w].color= 'n';
+                              e[v][w].available=0;
                               b_lost++;
-                              cl='b';
-                              sp_1++;
+                              //sp_1++;
 
        }else if( e[z][x].color=='w'&&(redo==1)&& promtoion_flag==1){
           if(e[v][w].print!=' '){
-                            black_lost[b_lost-1]=e[v][w].print;
-                             e[z][x].print=tolower(promd);
-                            e[z][x].color='w';
+                            white_lost[w_lost]=e[z][x].print;
+                             e[z][x].print=toupper(promd);
+                            e[z][x].color='b';
                             e[z][x].available=1;
                             e[v][w].print=' ';
                             e[v][w].color='n';
                             e[v][w].available=0;
-                            cl='b';
+                            w_lost++;
+
 
           }else if(e[v][w].print==' '){
                             e[z][x].print=' ';
@@ -342,17 +378,18 @@ struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d)
 
           }
             //promtoion_flag=0;
-            redo=0;
+
        }else if( e[z][x].color=='b'&&(redo==1)&& promtoion_flag==1){
           if(e[v][w].print!=' '){
-                        white_lost[w_lost-1]=e[v][w].print;
-                             e[z][x].print=toupper(promd);
-                            e[z][x].color='b';
+                        black_lost[b_lost]=e[z][x].print;
+                             e[z][x].print=tolower(promd);
+                            e[z][x].color='w';
                             e[z][x].available=1;
                             e[v][w].print=' ';
                             e[v][w].color='n';
                             e[v][w].available=0;
-                            cl='w';
+                            b_lost++;
+
 
           }else if(e[v][w].print==' '){
                             e[z][x].print=' ';
@@ -364,7 +401,7 @@ struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d)
 
           }
            // promtoion_flag=0;
-           redo=0;
+
        }
         if(undos1==1){
             e[v][w].print=e[z][x].print;
@@ -376,13 +413,9 @@ struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d)
              e[v][w].color=e[z][x].color;
            e[z][x].color=temp1;
              clrscr();
-                if(white_lost[w_lost-1]==e[v][w].print){
-                cl='w';
-            }else if(black_lost[b_lost-1]==e[v][w].print){
-                cl='b';
-            }
+
         }
-           if(redo){
+           if(redo1&&!promtoion_flag){
                     e[v][w].print=e[z][x].print;
                     e[z][x].print=' ';
                     int temp =e[v][w].available;
@@ -395,8 +428,8 @@ struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d)
 }
 
 
-        if(undos1==0 && undos==0&& redo==0){
-                    if(promtoion_flag ){
+        if(undos1==0 && undos==0&& redo==0&&redo1==0){
+                  /*  if(promtoion_flag ){
                         //we should know when promotion occur it return 0 when you make undo ;
                         //in case of promotion flag and redo  >>because when no undo and flag==1 he will make cl=w or b.
                         if(white_lost[w_lost-1]==e[v][w].print){
@@ -415,24 +448,22 @@ struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d)
                             cl='b';
                         }
 
-                }
-                           else if(black_lost[b_lost-1]!=e[v][w].print &&white_lost[w_lost-1]!=e[v][w].print){
-                                    cl=' ';
-                                }
-                           else if(white_lost[w_lost-1]==e[v][w].print){
+                }*/ //here >> when the eaten piece equal to the white or black piece at the list
+                //we make a structure to save this moves..for white and black.
+                         /*  else*/ if(white_lost[w_lost-1]==e[v][w].print){
                                 s_p[sp].letter[0]=a;
                                 s_p[sp].num[0]=b;
                                 s_p[sp].letter[1]=c;
                                 s_p[sp].num[1]=d;
                                 sp++;
-                                cl='w';
+
                             }else if(black_lost[b_lost-1]==e[v][w].print){
                                 s_p_1[sp_1].letter[0]=a;
                                 s_p_1[sp_1].num[0]=b;
                                 s_p_1[sp_1].letter[1]=c;
                                 s_p_1[sp_1].num[1]=d;
                                 sp_1++;
-                                cl='b';
+
                             }
 
                             e[v][w].print=e[z][x].print;
@@ -449,7 +480,7 @@ struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d)
 undos1=0;
 undos=0;
 redo=0;
-//redo1=0;
+redo1=0;
 
 
         return e[8][8];
