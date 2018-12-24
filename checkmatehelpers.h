@@ -524,5 +524,766 @@ int compare_w(struct s_text input){
     return a;
 }
 //------------------------------------------------------------------------
+int block_white(char i1,int j1,char i2,int j2){// i1 and j1 this is the place of pieces , i2 j2 is for the place of king
+    //for rook
+    if(i1==i2){
+            if(j2>j1){
+                j1=j1;
+            }else if(j1>j2){
+                int temp =j1;
+                j1=j2;
+                j2=temp;
+            }
+    for(int k=j1+1;k<j2;k++){
+         for(int i=0;i<8;i++){
+                for(int j=0;j<8;j++){
+                        if(a[i][j].print !=' '&& a[i][j].color=='w'){
+                                int f_num=i+1;
+                                char f_ch=j+65;
+                            switch(a[i][j].print){
+                                case('r')://check if black piece could be eaten from white piece
+                                    a1=rock_black_k(f_ch,f_num,i2,k);//place of white peace to black peace
+                                    break;
+                                case('n'):
+                                    a1=knight_k(f_ch,f_num,i2,k);
+                                    break;
+                                case('b'):
+                                    a1=bishop_black_k(f_ch,f_num,i2,k);
+                                    break;
+                                case('q'):
+                                    a1=queen_k(f_ch,f_num,i2,k);
+                                    break;
+                                case('p'):
+                                    eat=pawn_eat_k(f_ch,f_num,i2,k,a[i][j].color,'b');
+                                     x=pawns_white_k(f_ch,f_num,i2,k);
+                                     a1=eat||x;
+                                    break;
+                            }
+                            int b1 = way_check(a,f_ch,f_num,i2,k,a[i][j].print);
+                           if(b1 && a1){ //here the saving !
+                                expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
+                                expected_moves_w[expected_move_counter_w].num[0]=f_num;
+                                expected_moves_w[expected_move_counter_w].letter[1]=i2;
+                                expected_moves_w[expected_move_counter_w].num[1]=k;
+                                expected_move_counter_w++;
+                            }
 
+                    }
+                }
+            }
+        }
+    }else if(j2==j1){
+        if(i2>i1){
+            i1=i1;
+            i2=i2;
+        }else if(i1>i2){
+            int temp=i1;
+            i1=i2;
+            i2=temp;
+        }
+        for(int k=i1+1;k<i2;k++){
+            for(int i=0;i<8;i++){
+                for(int j=0;j<8;j++){
+                        if(a[i][j].print !=' '&& a[i][j].color=='w'){
+                                int f_num=i+1;
+                                char f_ch=j+65;
+                            switch(a[i][j].print){
+                                case('r')://check if black piece could be eaten from white piece
+                                    a1=rock_black_k(f_ch,f_num,k,j2);//place of white peace to black peace
+                                    break;
+                                case('n'):
+                                    a1=knight_k(f_ch,f_num,k,j2);
+                                    break;
+                                case('b'):
+                                    a1=bishop_black_k(f_ch,f_num,k,j2);
+                                    break;
+                                case('q'):
+                                    a1=queen_k(f_ch,f_num,k,j2);
+                                    break;
+                                case('p'):
+                                    eat=pawn_eat_k(f_ch,f_num,k,j2,a[i][j].color,'b');
+                                     x=pawns_white_k(f_ch,f_num,k,j2);
+                                     a1=eat||x;
+                                    break;
+                            }
+                            int b1 = way_check(a,f_ch,f_num,k,j2,a[i][j].print);
+                           if(b1 && a1){ //here the saving !
+                                expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
+                                expected_moves_w[expected_move_counter_w].num[0]=f_num;
+                                expected_moves_w[expected_move_counter_w].letter[1]=k;
+                                expected_moves_w[expected_move_counter_w].num[1]=j2;
+                                expected_move_counter_w++;
+                            }
+
+                    }
+                }
+            }
+        }
+    }
+
+}
+///Bishop///
+for(int w=1;w<8;w++){
+    if(j2>j1 &&i1>i2){
+        if((j2-j1)==w && (i1-i2)==w){
+            for (int k=j1+w;k<j2;k++){
+               for(int l=i2+w;l<i1;l++){
+                for(int i=0;i<8;i++){
+                    for(int j=0;j<8;j++){
+                        if(a[i][j].print !=' '&& a[i][j].color=='w'){
+                                int f_num=i+1;
+                                char f_ch=j+65;
+                            switch(a[i][j].print){
+                                case('r')://check if black piece could be eaten from white piece
+                                    a1=rock_black_k(f_ch,f_num,l,k);//place of white peace to black peace
+                                    break;
+                                case('n'):
+                                    a1=knight_k(f_ch,f_num,l,k);
+                                    break;
+                                case('b'):
+                                    a1=bishop_black_k(f_ch,f_num,l,k);
+                                    break;
+                                case('q'):
+                                    a1=queen_k(f_ch,f_num,l,k);
+                                    break;
+                                case('p'):
+                                    eat=pawn_eat_k(f_ch,f_num,l,k,a[i][j].color,'b');
+                                     x=pawns_white_k(f_ch,f_num,l,k);
+                                     a1=eat||x;
+                                    break;
+                            }
+                            int b1 = way_check(a,f_ch,f_num,l,k,a[i][j].print);
+                           if(b1 && a1){ //here the saving !
+                                expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
+                                expected_moves_w[expected_move_counter_w].num[0]=f_num;
+                                expected_moves_w[expected_move_counter_w].letter[1]=l;
+                                expected_moves_w[expected_move_counter_w].num[1]=k;
+                                expected_move_counter_w++;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }else if(j2>j1 && i2>i1){
+                if((j2-j1)==w && (i2-i1)==w){
+            for (int k=j1+w;k<j2;k++){
+               for(int l=i1+w;l<i2;l++){
+                for(int i=0;i<8;i++){
+                    for(int j=0;j<8;j++){
+                        if(a[i][j].print !=' '&& a[i][j].color=='w'){
+                                int f_num=i+1;
+                                char f_ch=j+65;
+                            switch(a[i][j].print){
+                                case('r')://check if black piece could be eaten from white piece
+                                    a1=rock_black_k(f_ch,f_num,l,k);//place of white peace to black peace
+                                    break;
+                                case('n'):
+                                    a1=knight_k(f_ch,f_num,l,k);
+                                    break;
+                                case('b'):
+                                    a1=bishop_black_k(f_ch,f_num,l,k);
+                                    break;
+                                case('q'):
+                                    a1=queen_k(f_ch,f_num,l,k);
+                                    break;
+                                case('p'):
+                                    eat=pawn_eat_k(f_ch,f_num,l,k,a[i][j].color,'b');
+                                     x=pawns_white_k(f_ch,f_num,l,k);
+                                     a1=eat||x;
+                                    break;
+                            }
+                            int b1 = way_check(a,f_ch,f_num,l,k,a[i][j].print);
+                           if(b1 && a1){ //here the saving !
+                                expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
+                                expected_moves_w[expected_move_counter_w].num[0]=f_num;
+                                expected_moves_w[expected_move_counter_w].letter[1]=l;
+                                expected_moves_w[expected_move_counter_w].num[1]=k;
+                                expected_move_counter_w++;
+                                    }
+
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    ///for queen///
+    if(i1==i2){
+        if(j2>j1){
+            j1=j1;
+        }else if(j1>j2){
+            int temp =j1;
+            j1=j2;
+            j2=temp;
+        }
+        for(int k=j1+1;k<j2;k++){
+            for(int i=0;i<8;i++){
+                for(int j=0;j<8;j++){
+                    if(a[i][j].print !=' '&& a[i][j].color=='w'){
+                            int f_num=i+1;
+                            char f_ch=j+65;
+                        switch(a[i][j].print){
+                            case('r')://check if black piece could be eaten from white piece
+                                a1=rock_black_k(f_ch,f_num,i2,k);//place of white peace to black peace
+                                break;
+                            case('n'):
+                                a1=knight_k(f_ch,f_num,i2,k);
+                                break;
+                            case('b'):
+                                a1=bishop_black_k(f_ch,f_num,i2,k);
+                                break;
+                            case('q'):
+                                a1=queen_k(f_ch,f_num,i2,k);
+                                break;
+                            case('p'):
+                                eat=pawn_eat_k(f_ch,f_num,i2,k,a[i][j].color,'b');
+                                    x=pawns_white_k(f_ch,f_num,i2,k);
+                                    a1=eat||x;
+                                break;
+                            }
+                           int b1 = way_check(a,f_ch,f_num,i2,k,a[i][j].print);
+                               if(b1 && a1){ //here the saving !
+                                  expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
+                                  expected_moves_w[expected_move_counter_w].num[0]=f_num;
+                                  expected_moves_w[expected_move_counter_w].letter[1]=i2;
+                                  expected_moves_w[expected_move_counter_w].num[1]=k;
+                                  expected_move_counter_w++;
+                            }
+
+                    }
+                }
+            }
+        }
+    }else if(j2==j1){
+        if(i2>i1){
+            i1=i1;
+            i2=i2;
+        }else if(i1>i2){
+            int temp=i1;
+            i1=i2;
+            i2=temp;
+        }
+        for(int k=i1+1;k<i2;k++){
+            for(int i=0;i<8;i++){
+                for(int j=0;j<8;j++){
+                        if(a[i][j].print !=' '&& a[i][j].color=='w'){
+                                int f_num=i+1;
+                                char f_ch=j+65;
+                            switch(a[i][j].print){
+                                case('r')://check if black piece could be eaten from white piece
+                                    a1=rock_black_k(f_ch,f_num,k,j2);//place of white peace to black peace
+                                    break;
+                                case('n'):
+                                    a1=knight_k(f_ch,f_num,k,j2);
+                                    break;
+                                case('b'):
+                                    a1=bishop_black_k(f_ch,f_num,k,j2);
+                                    break;
+                                case('q'):
+                                    a1=queen_k(f_ch,f_num,k,j2);
+                                    break;
+                                case('p'):
+                                    eat=pawn_eat_k(f_ch,f_num,k,j2,a[i][j].color,'b');
+                                     x=pawns_white_k(f_ch,f_num,k,j2);
+                                     a1=eat||x;
+                                    break;
+                            }
+                            int b1 = way_check(a,f_ch,f_num,k,j2,a[i][j].print);
+                           if(b1 && a1){ //here the saving !
+                                expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
+                                expected_moves_w[expected_move_counter_w].num[0]=f_num;
+                                expected_moves_w[expected_move_counter_w].letter[1]=k;
+                                expected_moves_w[expected_move_counter_w].num[1]=j2;
+                                expected_move_counter_w++;
+                            }
+
+                    }
+                }
+            }
+        }
+    }
+    else{
+        for(int w=1;w<8;w++){
+            if(j2>j1 &&i1>i2){
+                if((j2-j1)==w && (i1-i2)==w){
+                    for (int k=j1+w;k<j2;k++){
+                       for(int l=i2+w;l<i1;l++){
+                        for(int i=0;i<8;i++){
+                            for(int j=0;j<8;j++){
+                                if(a[i][j].print !=' '&& a[i][j].color=='w'){
+                                        int f_num=i+1;
+                                        char f_ch=j+65;
+                                    switch(a[i][j].print){
+                                        case('r')://check if black piece could be eaten from white piece
+                                            a1=rock_black_k(f_ch,f_num,l,k);//place of white peace to black peace
+                                            break;
+                                        case('n'):
+                                            a1=knight_k(f_ch,f_num,l,k);
+                                            break;
+                                        case('b'):
+                                            a1=bishop_black_k(f_ch,f_num,l,k);
+                                            break;
+                                        case('q'):
+                                            a1=queen_k(f_ch,f_num,l,k);
+                                            break;
+                                        case('p'):
+                                            eat=pawn_eat_k(f_ch,f_num,l,k,a[i][j].color,'b');
+                                             x=pawns_white_k(f_ch,f_num,l,k);
+                                             a1=eat||x;
+                                            break;
+                                    }
+                                    int b1 = way_check(a,f_ch,f_num,l,k,a[i][j].print);
+                                   if(b1 && a1){ //here the saving !
+                                        expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
+                                        expected_moves_w[expected_move_counter_w].num[0]=f_num;
+                                        expected_moves_w[expected_move_counter_w].letter[1]=l;
+                                        expected_moves_w[expected_move_counter_w].num[1]=k;
+                                        expected_move_counter_w++;
+                                            }
+
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }else if(j2>j1 && i2>i1){
+                        if((j2-j1)==w && (i2-i1)==w){
+                        for (int k=j1+w;k<j2;k++){
+                           for(int l=i1+w;l<i2;l++){
+                            for(int i=0;i<8;i++){
+                                for(int j=0;j<8;j++){
+                                    if(a[i][j].print !=' '&& a[i][j].color=='w'){
+                                            int f_num=i+1;
+                                            char f_ch=j+65;
+                                        switch(a[i][j].print){
+                                            case('r')://check if black piece could be eaten from white piece
+                                                a1=rock_black_k(f_ch,f_num,l,k);//place of white peace to black peace
+                                                break;
+                                            case('n'):
+                                                a1=knight_k(f_ch,f_num,l,k);
+                                                break;
+                                            case('b'):
+                                                a1=bishop_black_k(f_ch,f_num,l,k);
+                                                break;
+                                            case('q'):
+                                                a1=queen_k(f_ch,f_num,l,k);
+                                                break;
+                                            case('p'):
+                                                eat=pawn_eat_k(f_ch,f_num,l,k,a[i][j].color,'b');
+                                                 x=pawns_white_k(f_ch,f_num,l,k);
+                                                 a1=eat||x;
+                                                break;
+                                        }
+                                        int b1 = way_check(a,f_ch,f_num,l,k,a[i][j].print);
+                                       if(b1 && a1){ //here the saving !
+                                            expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
+                                            expected_moves_w[expected_move_counter_w].num[0]=f_num;
+                                            expected_moves_w[expected_move_counter_w].letter[1]=l;
+                                            expected_moves_w[expected_move_counter_w].num[1]=k;
+                                            expected_move_counter_w++;
+                                                }
+
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+    }
+}
+int block_black(char i1,int j1,char i2,int j2){
+        //for rook
+    if(i1==i2){
+            if(j1>j2){
+                j2=j2;
+            }else if(j2>j1){
+                int temp =j2;
+                j2=j1;
+                j1=temp;
+            }
+    for(int k=j2+1;k<j1;k++){
+             for(int i=0;i<8;i++){
+                    for(int j=0;j<8;j++){
+                            if(a[i][j].print !=' '&& a[i][j].color=='b'){
+                                    int f_num=i+1;
+                                    char f_ch=j+65;
+                                switch(a[i][j].print){
+                                    case('R'):
+                                        a1=rock_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('N'):
+                                        a1=knight_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('B'):
+                                        a1=bishop_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('K'):
+                                        a1=king_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('Q'):
+                                        a1=queen_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('P'):
+                                        eat=pawn_eat_k(f_ch,f_num,to_ch,to_num,a[i][j].color,'w');
+                                         x=pawns_black_k(f_ch,f_num,to_ch,to_num);
+                                         a1=eat||x;
+                                        break;
+                                }
+                                int b1 = way_check(a,f_ch,f_num,to_ch,to_num,a[i][j].print);
+            // if no one save move
+                                if(a1&& b1){
+                                     expected_moves_w[expected_move_counter_w].letter[0]=xx;
+                                    expected_moves_w[expected_move_counter_w].num[0]=yy;
+                                    expected_moves_w[expected_move_counter_w].letter[1]=to_ch;
+                                    expected_moves_w[expected_move_counter_w].num[1]=to_num;
+                                    expected_move_counter_w++;
+                                }
+                        }
+                    }
+                }
+    }else if(j2==j1){
+        if(i2>i1){
+            i1=i1;
+            i2=i2;
+        }else if(i1>i2){
+            int temp=i1;
+            i1=i2;
+            i2=temp;
+        }
+        for(int k=i1+1;k<i2;k++){
+                 for(int i=0;i<8;i++){
+                    for(int j=0;j<8;j++){
+                            if(a[i][j].print !=' '&& a[i][j].color=='b'){
+                                    int f_num=i+1;
+                                    char f_ch=j+65;
+                                switch(a[i][j].print){
+                                    case('R'):
+                                        a1=rock_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('N'):
+                                        a1=knight_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('B'):
+                                        a1=bishop_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('K'):
+                                        a1=king_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('Q'):
+                                        a1=queen_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('P'):
+                                        eat=pawn_eat_k(f_ch,f_num,to_ch,to_num,a[i][j].color,'w');
+                                         x=pawns_black_k(f_ch,f_num,to_ch,to_num);
+                                         a1=eat||x;
+                                        break;
+                                }
+                                int b1 = way_check(a,f_ch,f_num,to_ch,to_num,a[i][j].print);
+            // if no one save move
+                                if(a1&& b1){
+                                     expected_moves_w[expected_move_counter_w].letter[0]=xx;
+                                    expected_moves_w[expected_move_counter_w].num[0]=yy;
+                                    expected_moves_w[expected_move_counter_w].letter[1]=to_ch;
+                                    expected_moves_w[expected_move_counter_w].num[1]=to_num;
+                                    expected_move_counter_w++;
+                                }
+                        }
+                    }
+                }
+
+}
+///Bishop///
+for(int w=1;w<8;w++){
+    if(j1>j2 &&i1>i2){
+        if((j1-j2)==w && (i1-i2)==w){
+            for (int k=j2+w;k<j1;k++){
+               for(int l=i2+w;l<i1;l++){
+                    for(int i=0;i<8;i++){
+                        for(int j=0;j<8;j++){
+                            if(a[i][j].print !=' '&& a[i][j].color=='b'){
+                                    int f_num=i+1;
+                                    char f_ch=j+65;
+                                switch(a[i][j].print){
+                                    case('R'):
+                                        a1=rock_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('N'):
+                                        a1=knight_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('B'):
+                                        a1=bishop_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('K'):
+                                        a1=king_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('Q'):
+                                        a1=queen_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('P'):
+                                        eat=pawn_eat_k(f_ch,f_num,to_ch,to_num,a[i][j].color,'w');
+                                         x=pawns_black_k(f_ch,f_num,to_ch,to_num);
+                                         a1=eat||x;
+                                        break;
+                                }
+                                int b1 = way_check(a,f_ch,f_num,to_ch,to_num,a[i][j].print);
+            // if no one save move
+                                if(a1&& b1){
+                                     expected_moves_w[expected_move_counter_w].letter[0]=xx;
+                                    expected_moves_w[expected_move_counter_w].num[0]=yy;
+                                    expected_moves_w[expected_move_counter_w].letter[1]=to_ch;
+                                    expected_moves_w[expected_move_counter_w].num[1]=to_num;
+                                    expected_move_counter_w++;
+                                }
+                        }
+                    }
+                }
+        }else if(j1>j2 && i2>i1){
+           if((j1-j2)==w && (i2-i1)==w){
+                for (int k=j2+w;k<j1;k++){
+                    for(int l=i1+w;l<i2;l++){
+                       for(int i=0;i<8;i++){
+                            for(int j=0;j<8;j++){
+                                if(a[i][j].print !=' '&& a[i][j].color=='b'){
+                                    int f_num=i+1;
+                                    char f_ch=j+65;
+                                switch(a[i][j].print){
+                                    case('R'):
+                                        a1=rock_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('N'):
+                                        a1=knight_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('B'):
+                                        a1=bishop_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('K'):
+                                        a1=king_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('Q'):
+                                        a1=queen_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('P'):
+                                        eat=pawn_eat_k(f_ch,f_num,to_ch,to_num,a[i][j].color,'w');
+                                         x=pawns_black_k(f_ch,f_num,to_ch,to_num);
+                                         a1=eat||x;
+                                        break;
+                                }
+                                int b1 = way_check(a,f_ch,f_num,to_ch,to_num,a[i][j].print);
+            // if no one save move
+                                if(a1&& b1){
+                                     expected_moves_w[expected_move_counter_w].letter[0]=xx;
+                                    expected_moves_w[expected_move_counter_w].num[0]=yy;
+                                    expected_moves_w[expected_move_counter_w].letter[1]=to_ch;
+                                    expected_moves_w[expected_move_counter_w].num[1]=to_num;
+                                    expected_move_counter_w++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+           }
+    }
+    //for queen
+            //for rook
+    if(i1==i2){
+            if(j1>j2){
+                j2=j2;
+            }else if(j2>j1){
+                int temp =j2;
+                j2=j1;
+                j1=temp;
+            }
+    for(int k=j2+1;k<j1;k++){
+             for(int i=0;i<8;i++){
+                    for(int j=0;j<8;j++){
+                            if(a[i][j].print !=' '&& a[i][j].color=='b'){
+                                    int f_num=i+1;
+                                    char f_ch=j+65;
+                                switch(a[i][j].print){
+                                    case('R'):
+                                        a1=rock_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('N'):
+                                        a1=knight_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('B'):
+                                        a1=bishop_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('K'):
+                                        a1=king_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('Q'):
+                                        a1=queen_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('P'):
+                                        eat=pawn_eat_k(f_ch,f_num,to_ch,to_num,a[i][j].color,'w');
+                                         x=pawns_black_k(f_ch,f_num,to_ch,to_num);
+                                         a1=eat||x;
+                                        break;
+                                }
+                                int b1 = way_check(a,f_ch,f_num,to_ch,to_num,a[i][j].print);
+            // if no one save move
+                                if(a1&& b1){
+                                     expected_moves_w[expected_move_counter_w].letter[0]=xx;
+                                    expected_moves_w[expected_move_counter_w].num[0]=yy;
+                                    expected_moves_w[expected_move_counter_w].letter[1]=to_ch;
+                                    expected_moves_w[expected_move_counter_w].num[1]=to_num;
+                                    expected_move_counter_w++;
+                                }
+                        }
+                    }
+                }
+    }else if(j2==j1){
+        if(i2>i1){
+            i1=i1;
+            i2=i2;
+        }else if(i1>i2){
+            int temp=i1;
+            i1=i2;
+            i2=temp;
+        }
+        for(int k=i1+1;k<i2;k++){
+                 for(int i=0;i<8;i++){
+                    for(int j=0;j<8;j++){
+                            if(a[i][j].print !=' '&& a[i][j].color=='b'){
+                                    int f_num=i+1;
+                                    char f_ch=j+65;
+                                switch(a[i][j].print){
+                                    case('R'):
+                                        a1=rock_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('N'):
+                                        a1=knight_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('B'):
+                                        a1=bishop_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('K'):
+                                        a1=king_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('Q'):
+                                        a1=queen_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('P'):
+                                        eat=pawn_eat_k(f_ch,f_num,to_ch,to_num,a[i][j].color,'w');
+                                         x=pawns_black_k(f_ch,f_num,to_ch,to_num);
+                                         a1=eat||x;
+                                        break;
+                                }
+                                int b1 = way_check(a,f_ch,f_num,to_ch,to_num,a[i][j].print);
+            // if no one save move
+                                if(a1&& b1){
+                                     expected_moves_w[expected_move_counter_w].letter[0]=xx;
+                                    expected_moves_w[expected_move_counter_w].num[0]=yy;
+                                    expected_moves_w[expected_move_counter_w].letter[1]=to_ch;
+                                    expected_moves_w[expected_move_counter_w].num[1]=to_num;
+                                    expected_move_counter_w++;
+                                }
+                        }
+                    }
+                }
+
+}
+///Bishop///
+for(int w=1;w<8;w++){
+    if(j1>j2 &&i1>i2){
+        if((j1-j2)==w && (i1-i2)==w){
+            for (int k=j2+w;k<j1;k++){
+               for(int l=i2+w;l<i1;l++){
+                    for(int i=0;i<8;i++){
+                        for(int j=0;j<8;j++){
+                            if(a[i][j].print !=' '&& a[i][j].color=='b'){
+                                    int f_num=i+1;
+                                    char f_ch=j+65;
+                                switch(a[i][j].print){
+                                    case('R'):
+                                        a1=rock_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('N'):
+                                        a1=knight_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('B'):
+                                        a1=bishop_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('K'):
+                                        a1=king_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('Q'):
+                                        a1=queen_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('P'):
+                                        eat=pawn_eat_k(f_ch,f_num,to_ch,to_num,a[i][j].color,'w');
+                                         x=pawns_black_k(f_ch,f_num,to_ch,to_num);
+                                         a1=eat||x;
+                                        break;
+                                }
+                                int b1 = way_check(a,f_ch,f_num,to_ch,to_num,a[i][j].print);
+            // if no one save move
+                                if(a1&& b1){
+                                     expected_moves_w[expected_move_counter_w].letter[0]=xx;
+                                    expected_moves_w[expected_move_counter_w].num[0]=yy;
+                                    expected_moves_w[expected_move_counter_w].letter[1]=to_ch;
+                                    expected_moves_w[expected_move_counter_w].num[1]=to_num;
+                                    expected_move_counter_w++;
+                                }
+                        }
+                    }
+                }
+        }else if(j1>j2 && i2>i1){
+           if((j1-j2)==w && (i2-i1)==w){
+                for (int k=j2+w;k<j1;k++){
+                    for(int l=i1+w;l<i2;l++){
+                       for(int i=0;i<8;i++){
+                            for(int j=0;j<8;j++){
+                                if(a[i][j].print !=' '&& a[i][j].color=='b'){
+                                    int f_num=i+1;
+                                    char f_ch=j+65;
+                                switch(a[i][j].print){
+                                    case('R'):
+                                        a1=rock_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('N'):
+                                        a1=knight_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('B'):
+                                        a1=bishop_black_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('K'):
+                                        a1=king_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('Q'):
+                                        a1=queen_k(f_ch,f_num,to_ch,to_num);
+                                        break;
+                                    case('P'):
+                                        eat=pawn_eat_k(f_ch,f_num,to_ch,to_num,a[i][j].color,'w');
+                                         x=pawns_black_k(f_ch,f_num,to_ch,to_num);
+                                         a1=eat||x;
+                                        break;
+                                }
+                                int b1 = way_check(a,f_ch,f_num,to_ch,to_num,a[i][j].print);
+            // if no one save move
+                                if(a1&& b1){
+                                     expected_moves_w[expected_move_counter_w].letter[0]=xx;
+                                    expected_moves_w[expected_move_counter_w].num[0]=yy;
+                                    expected_moves_w[expected_move_counter_w].letter[1]=to_ch;
+                                    expected_moves_w[expected_move_counter_w].num[1]=to_num;
+                                    expected_move_counter_w++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+           }
+    }
+}
 #endif // CHECKMATEHELPERS_H_INCLUDED
