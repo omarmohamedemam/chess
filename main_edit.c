@@ -83,6 +83,7 @@ int undo_counter;
             if(element_flag && text_check && way_flag   /*for boundaries */){
                     // apply move which contain clear
                 move_pieces(pieces,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
+                happen=0;
                 save_move_a(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
             //print board again
                 print_board(pieces);
@@ -96,6 +97,7 @@ int undo_counter;
             //making the promotion and save it
                 if(promtoion_flag==1){
                     make_promo(pieces,r_scan.letter[1],r_scan.num[1],r_scan.letter[2]);
+                    promd=r_scan.letter[2];
                     clrscr();
                     print_board(pieces);
                     save_move_p(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1],promtoion_flag);
