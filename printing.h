@@ -2,6 +2,7 @@
 #define PRINTING_H_INCLUDED
 #include<conio.h>
 #include <windows.h>
+#include "savefile.h"
 //print text in red color
 void red () {
   printf("\033[1;31m");
@@ -16,7 +17,7 @@ void reset () {
 }
 //-------------------------------------------------------------------
 //introduction function
-char intro (){
+char intro (struct board_str e[8][8]){
     char m;
          printf("\n\tWelcome To Chess Game\n\n \n");
          printf("\t #####     #   #    #######      ####    ####\n");
@@ -37,9 +38,10 @@ char intro (){
         if(m=='s'||m=='S'){
             return 1;
         }
-        /*if(m==l){
-            loadfile()
-        }*/
+        if(m=='l'||m=='L'){
+            loadfile("save.txt",e,e[8][8]);
+            return 1;
+        }
         else{
                 printf(" ERROR : Invalid Input Try Again\n");
            return 0;

@@ -81,7 +81,7 @@ int mate_check(struct board_str a[8][8],char kind,char colors){
                 reset();
                 eat_test_while_black_under_threat(a,save);
                 black_king_move(a,y1,x1);
-                //still the block case
+                block_black(a,save[0].s_ch,save[0].s_num,y1,x1);
                 ret= 1;
 
             }
@@ -160,8 +160,9 @@ int mate_check(struct board_str a[8][8],char kind,char colors){
                 reset();
                 eat_test_while_white_under_threat(a,save);
                 white_king_move(a,y1,x1);
+                block_white(a,save[0].s_ch,save[0].s_num,y1,x1);
                 ret= 1;
-                //still the block case
+
 
             }
             // telling that there is an check

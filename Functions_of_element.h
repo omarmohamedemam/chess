@@ -25,6 +25,7 @@ else if((j1==3||j1==4||j1==5||j1==6||j1==7) && (j2-j1)==1 && i1==i2){
     else{
         flag=0;
     }
+
     if(flag==0 && (!eat)){
             red();
         printf("Error : Invalid move \n");
@@ -207,11 +208,11 @@ int pawn_eat(char i1,int j1,char i2,int j2,char a, char b){
             flag=1;
         }
     }
-    if(flag==0 && (!pawn)){
+/*    if(flag==0 && (!pawn)){
         red();
         printf("Error : Invalid move \n");
         reset();
-    }
+    }*/
     return flag;
 
 

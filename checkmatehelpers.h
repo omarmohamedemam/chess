@@ -333,8 +333,8 @@ void white_king_move(struct board_str a[8][8],char xx, int yy){
         n_end=1;
     }
     //king moves
-    for(int mm=m;mm<=m_end;m++){
-        for(int nn=n;nn<=n_end;n++){
+    for(int mm=m;mm<=m_end;mm++){
+        for(int nn=n;nn<=n_end;nn++){
                 int to_num =yy+nn;
                 char to_ch =xx+mm;
             //available move
@@ -513,6 +513,7 @@ int compare_b(struct s_text input){
     }
     return a;
 }
+//-----------------------------------------------------------------
 int compare_w(struct s_text input){
     int a=0;
     for(int i=0;i<expected_move_counter_w;i++){
@@ -525,8 +526,11 @@ int compare_w(struct s_text input){
 }
 //------------------------------------------------------------------------
 int block_white(struct board_str a[8][8],char i1,int j1,char i2,int j2){// i1 and j1 this is the place of pieces , i2 j2 is for the place of king
-    //for rook
+    int x=i1-'A';
+    int z=j1-1;
     int a1,b1;
+    if(a[z][x].print=='R'){
+
     if(i1==i2){
             if(j2>j1){
                 j1=j1;
@@ -621,12 +625,14 @@ int block_white(struct board_str a[8][8],char i1,int j1,char i2,int j2){// i1 an
             }
         }
     }
+    }
 ///Bishop///
+    if(a[z][x].print=='B'){
 for(int w=1;w<8;w++){
     if(j2>j1 &&i1>i2){
         if((j2-j1)==w && (i1-i2)==w){
-            for (int k=j1+w;k<j2;k++){
-               for(int l=i2+w;l<i1;l++){
+            for (int k=j1+1;k<j2;k++){
+               for(int l=i2+1;l<i1;l++){
                 for(int i=0;i<8;i++){
                     for(int j=0;j<8;j++){
                         if(a[i][j].print !=' '&& a[i][j].color=='w'){
@@ -668,8 +674,8 @@ for(int w=1;w<8;w++){
             }
         }else if(j2>j1 && i2>i1){
                 if((j2-j1)==w && (i2-i1)==w){
-            for (int k=j1+w;k<j2;k++){
-               for(int l=i1+w;l<i2;l++){
+            for (int k=j1+1;k<j2;k++){
+               for(int l=i1+1;l<i2;l++){
                 for(int i=0;i<8;i++){
                     for(int j=0;j<8;j++){
                         if(a[i][j].print !=' '&& a[i][j].color=='w'){
@@ -711,7 +717,9 @@ for(int w=1;w<8;w++){
             }
         }
     }
+    }
     ///for queen///
+        if(a[z][x].print=='Q'){
     if(i1==i2){
         if(j2>j1){
             j1=j1;
@@ -810,8 +818,8 @@ for(int w=1;w<8;w++){
         for(int w=1;w<8;w++){
             if(j2>j1 &&i1>i2){
                 if((j2-j1)==w && (i1-i2)==w){
-                    for (int k=j1+w;k<j2;k++){
-                       for(int l=i2+w;l<i1;l++){
+                    for (int k=j1+1;k<j2;k++){
+                       for(int l=i2+1;l<i1;l++){
                         for(int i=0;i<8;i++){
                             for(int j=0;j<8;j++){
                                 if(a[i][j].print !=' '&& a[i][j].color=='w'){
@@ -853,8 +861,8 @@ for(int w=1;w<8;w++){
                     }
                 }else if(j2>j1 && i2>i1){
                         if((j2-j1)==w && (i2-i1)==w){
-                        for (int k=j1+w;k<j2;k++){
-                           for(int l=i1+w;l<i2;l++){
+                        for (int k=j1+1;k<j2;k++){
+                           for(int l=i1+1;l<i2;l++){
                             for(int i=0;i<8;i++){
                                 for(int j=0;j<8;j++){
                                     if(a[i][j].print !=' '&& a[i][j].color=='w'){
@@ -898,9 +906,14 @@ for(int w=1;w<8;w++){
                 }
     }
 }
+}
 int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
+    int x=i1-'A';
+    int z=j1-1;
+    int a1,b1;
         //for rook
-        int a1,b1;
+            if(a[z][x].print=='r'){
+
     if(i1==i2){
             if(j1>j2){
                 j2=j2;
@@ -940,11 +953,11 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
                                 int b1 = way_check(a,f_ch,f_num,i2,k,a[i][j].print);
             // if no one save move
                                 if(a1&& b1){
-                                     expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
-                                    expected_moves_w[expected_move_counter_w].num[0]=f_num;
-                                    expected_moves_w[expected_move_counter_w].letter[1]=i2;
-                                    expected_moves_w[expected_move_counter_w].num[1]=k;
-                                    expected_move_counter_w++;
+                                     expected_moves_b[expected_move_counter_b].letter[0]=f_ch;
+                                    expected_moves_b[expected_move_counter_b].num[0]=f_num;
+                                    expected_moves_b[expected_move_counter_b].letter[1]=i2;
+                                    expected_moves_b[expected_move_counter_b].num[1]=k;
+                                    expected_move_counter_b++;
                                 }
                         }
                     }
@@ -990,23 +1003,25 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
                                 int b1 = way_check(a,f_ch,f_num,k,j2,a[i][j].print);
             // if no one save move
                                 if(a1&& b1){
-                                     expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
-                                    expected_moves_w[expected_move_counter_w].num[0]=f_num;
-                                    expected_moves_w[expected_move_counter_w].letter[1]=k;
-                                    expected_moves_w[expected_move_counter_w].num[1]=j2;
-                                    expected_move_counter_w++;
+                                     expected_moves_b[expected_move_counter_b].letter[0]=f_ch;
+                                    expected_moves_b[expected_move_counter_b].num[0]=f_num;
+                                    expected_moves_b[expected_move_counter_b].letter[1]=k;
+                                    expected_moves_b[expected_move_counter_b].num[1]=j2;
+                                    expected_move_counter_b++;
                                 }
                         }
                     }
                 }
             }
         }
+            }
 ///Bishop///
+    if(a[z][x].print=='b'){
     for(int w=1;w<8;w++){
         if(j1>j2 &&i1>i2){
             if((j1-j2)==w && (i1-i2)==w){
-                for (int k=j2+w;k<j1;k++){
-                    for(int l=i2+w;l<i1;l++){
+                for (int k=j2+1;k<j1;k++){
+                    for(int l=i2+1;l<i1;l++){
                         for(int i=0;i<8;i++){
                             for(int j=0;j<8;j++){
                                 if(a[i][j].print !=' '&& a[i][j].color=='b'){
@@ -1037,11 +1052,11 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
                                 int b1 = way_check(a,f_ch,f_num,l,k,a[i][j].print);
             // if no one save move
                                 if(a1&& b1){
-                                     expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
-                                    expected_moves_w[expected_move_counter_w].num[0]=f_num;
-                                    expected_moves_w[expected_move_counter_w].letter[1]=l;
-                                    expected_moves_w[expected_move_counter_w].num[1]=k;
-                                    expected_move_counter_w++;
+                                     expected_moves_b[expected_move_counter_b].letter[0]=f_ch;
+                                    expected_moves_b[expected_move_counter_b].num[0]=f_num;
+                                    expected_moves_b[expected_move_counter_b].letter[1]=l;
+                                    expected_moves_b[expected_move_counter_b].num[1]=k;
+                                    expected_move_counter_b++;
                                     }
                                 }
                             }
@@ -1051,8 +1066,8 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
             }
         }else if(j1>j2 && i2>i1){
             if((j1-j2)==w && (i2-i1)==w){
-                for (int k=j2+w;k<j1;k++){
-                    for(int l=i1+w;l<i2;l++){
+                for (int k=j2+1;k<j1;k++){
+                    for(int l=i1+1;l<i2;l++){
                        for(int i=0;i<8;i++){
                             for(int j=0;j<8;j++){
                                 if(a[i][j].print !=' '&& a[i][j].color=='b'){
@@ -1083,11 +1098,11 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
                                 int b1 = way_check(a,f_ch,f_num,l,k,a[i][j].print);
             // if no one save move
                                 if(a1&& b1){
-                                     expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
-                                    expected_moves_w[expected_move_counter_w].num[0]=f_num;
-                                    expected_moves_w[expected_move_counter_w].letter[1]=l;
-                                    expected_moves_w[expected_move_counter_w].num[1]=k;
-                                    expected_move_counter_w++;
+                                     expected_moves_b[expected_move_counter_b].letter[0]=f_ch;
+                                    expected_moves_b[expected_move_counter_b].num[0]=f_num;
+                                    expected_moves_b[expected_move_counter_b].letter[1]=l;
+                                    expected_moves_b[expected_move_counter_b].num[1]=k;
+                                    expected_move_counter_b++;
                                     }
                                 }
                             }
@@ -1097,10 +1112,11 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
            }
         }
     }
+    }
            //for queen
 
            //for rook
-
+    if(a[z][x].print=='q'){
     if(i1==i2){
             if(j1>j2){
                 j2=j2;
@@ -1140,11 +1156,11 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
                                 int b1 = way_check(a,f_ch,f_num,i2,k,a[i][j].print);
             // if no one save move
                                 if(a1&& b1){
-                                     expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
-                                    expected_moves_w[expected_move_counter_w].num[0]=f_num;
-                                    expected_moves_w[expected_move_counter_w].letter[1]=i2;
-                                    expected_moves_w[expected_move_counter_w].num[1]=k;
-                                    expected_move_counter_w++;
+                                     expected_moves_b[expected_move_counter_b].letter[0]=f_ch;
+                                    expected_moves_b[expected_move_counter_b].num[0]=f_num;
+                                    expected_moves_b[expected_move_counter_b].letter[1]=i2;
+                                    expected_moves_b[expected_move_counter_b].num[1]=k;
+                                    expected_move_counter_b++;
                                 }
                         }
                     }
@@ -1190,24 +1206,25 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
                                 int b1 = way_check(a,f_ch,f_num,k,j2,a[i][j].print);
             // if no one save move
                                 if(a1&& b1){
-                                     expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
-                                    expected_moves_w[expected_move_counter_w].num[0]=f_num;
-                                    expected_moves_w[expected_move_counter_w].letter[1]=k;
-                                    expected_moves_w[expected_move_counter_w].num[1]=j2;
-                                    expected_move_counter_w++;
+                                     expected_moves_b[expected_move_counter_b].letter[0]=f_ch;
+                                    expected_moves_b[expected_move_counter_b].num[0]=f_num;
+                                    expected_moves_b[expected_move_counter_b].letter[1]=k;
+                                    expected_moves_b[expected_move_counter_b].num[1]=j2;
+                                    expected_move_counter_b++;
                                 }
                         }
                     }
                 }
         }
 }
-///Bishop///
+
+
     else {
         for(int w=1;w<8;w++){
             if(j1>j2 &&i1>i2){
                 if((j1-j2)==w && (i1-i2)==w){
-                    for (int k=j2+w;k<j1;k++){
-                       for(int l=i2+w;l<i1;l++){
+                    for (int k=j2+1;k<j1;k++){
+                       for(int l=i2+1;l<i1;l++){
                             for(int i=0;i<8;i++){
                                 for(int j=0;j<8;j++){
                                     if(a[i][j].print !=' '&& a[i][j].color=='b'){
@@ -1238,11 +1255,11 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
                                 int b1 = way_check(a,f_ch,f_num,l,k,a[i][j].print);
             // if no one save move
                                 if(a1&& b1){
-                                     expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
-                                    expected_moves_w[expected_move_counter_w].num[0]=f_num;
-                                    expected_moves_w[expected_move_counter_w].letter[1]=l;
-                                    expected_moves_w[expected_move_counter_w].num[1]=k;
-                                    expected_move_counter_w++;
+                                     expected_moves_b[expected_move_counter_b].letter[0]=f_ch;
+                                    expected_moves_b[expected_move_counter_b].num[0]=f_num;
+                                    expected_moves_b[expected_move_counter_b].letter[1]=l;
+                                    expected_moves_b[expected_move_counter_b].num[1]=k;
+                                    expected_move_counter_b++;
                                 }
                             }
                         }
@@ -1252,8 +1269,8 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
         }
     }else if(j1>j2 && i2>i1){
            if((j1-j2)==w && (i2-i1)==w){
-                for (int k=j2+w;k<j1;k++){
-                    for(int l=i1+w;l<i2;l++){
+                for (int k=j2+1;k<j1;k++){
+                    for(int l=i1+1;l<i2;l++){
                        for(int i=0;i<8;i++){
                             for(int j=0;j<8;j++){
                                 if(a[i][j].print !=' '&& a[i][j].color=='b'){
@@ -1284,11 +1301,11 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
                                 int b1 = way_check(a,f_ch,f_num,l,k,a[i][j].print);
             // if no one save move
                                 if(a1&& b1){
-                                     expected_moves_w[expected_move_counter_w].letter[0]=f_ch;
-                                    expected_moves_w[expected_move_counter_w].num[0]=f_num;
-                                    expected_moves_w[expected_move_counter_w].letter[1]=l;
-                                    expected_moves_w[expected_move_counter_w].num[1]=k;
-                                    expected_move_counter_w++;
+                                     expected_moves_b[expected_move_counter_b].letter[0]=f_ch;
+                                    expected_moves_b[expected_move_counter_b].num[0]=f_num;
+                                    expected_moves_b[expected_move_counter_b].letter[1]=l;
+                                    expected_moves_b[expected_move_counter_b].num[1]=k;
+                                    expected_move_counter_b++;
                                                 }
                                             }
                                         }
@@ -1300,4 +1317,11 @@ int block_black(struct board_str a[8][8],char i1,int j1,char i2,int j2){
                 }
         }
 }
+}
+//-----------------------------------------------------------------------------------
+
+
+
+
+
 #endif // CHECKMATEHELPERS_H_INCLUDED

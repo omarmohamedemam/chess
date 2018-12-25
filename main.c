@@ -11,24 +11,32 @@
 #include "Functions_of_element.h"
 #include "checkmate.h"
 #include "checkmatehelpers.h"
+#include "stalmate.h"
 //------------------------------------------------------
-int pro_un;
+int s;
 int un;
+int undo_counter=0;
+int pro_counter=0;
+int sp=0;
+int promtoion_flag=0;
+int sp_1=0;
+int i=0;
 //----------------------------------------------------------
 int main()
 {
-    int check_white =0;//for check mate
-    int check_black =0;//for check mate
-    //first use [intro - ask to start - keep playing till s]
-    int start =intro();
-    // initialize and set values
     struct board_str pieces [8][8];
     struct s_text r_scan;
     first_time_board(pieces);
+    int check_white =0;//for check mate
+    int check_black =0;//for check mate
+    //first use [intro - ask to start - keep playing till s]
+    int start =intro(pieces);
+    // initialize and set values
+
    while(start!=1){
         Sleep(800);
         clrscr();
-        start =intro();
+        start =intro(pieces);
    }
    //--------------------------------
    //print the board first time
@@ -90,6 +98,10 @@ int main()
                 r_scan=scan_move(pieces);
 
             }
+            if(s==1){
+                continue;
+                clrscr();
+            }
 
         //telling in case of undo
             if(un ==1 ){
@@ -129,12 +141,34 @@ int main()
             if(element_flag && text_check && way_flag   /*for boundaries */){
                     // apply move which contain clear
                 move_pieces(pieces,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
+                 happen=0;
+                 save_move_a(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
             //print board again
                 print_board(pieces);
             // check checkmate
                   check_black = mate_check(pieces,'K','b');
 
                   check_white =  mate_check(pieces,'k','w');
+                  if(check_black==0){
+                    int a=check_stalemate_black(pieces);
+                    if(a==1){
+                        checkmate=1;
+                        red();
+                        printf("   Stale Mate \n");
+                        printf("    Game Is ended by DRAW \n");
+                        reset();
+                    }
+                  }
+                if(check_white==0){
+                    int a=check_stalemate_white(pieces);
+                    if(a==1){
+                        checkmate=1;
+                        red();
+                        printf("   Stale Mate \n");
+                        printf("    Game Is ended by DRAW \n");
+                        reset();
+                    }
+                  }
                   if(check_black ==1 && i%2!=0){
                     checkmate=1;
                      red();
@@ -155,11 +189,12 @@ int main()
             //making the promotion and save it
                 if(promtoion_flag==1){
                     make_promo(pieces,r_scan.letter[1],r_scan.num[1],r_scan.letter[2]);
+                    promd=r_scan.letter[2];
                     clrscr();
                     print_board(pieces);
-
+                    save_move_p(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1],promtoion_flag);
+                    promtoion_flag==0;
                 }
-                pro_un=save_move(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1],promtoion_flag);
             }
             //in case of wrong input
             else{
@@ -173,8 +208,62 @@ int main()
                     red();
                     printf("\t\t\tTry Again,Please\n");
                     reset();
-                    //------------------------scan again
-                     r_scan=scan_move(pieces);
+   if( check_black==1){
+    // scan move
+                while( check_black==1){
+                        fixed_turn(i);
+                        r_scan=scan_move(pieces);
+                    int q =compare_b(r_scan);
+                if(q==0){
+                    yellow();
+                    printf("Error This Move May Make you lost\t\t");
+                    reset();
+                    red();
+                    printf("Try Again \n");
+                    reset();
+
+                }
+                else{
+                    check_black=0;
+                    continue;
+
+                }
+                }
+
+
+            }
+            else if( check_white==1){
+    // scan move
+                while( check_white==1){
+                        fixed_turn(i);
+                        r_scan=scan_move(pieces);
+                    int q =compare_w(r_scan);
+                if(q==0){
+                    yellow();
+                    printf("Error This Move May Make you lost\t\t");
+                    reset();
+                    red();
+                    printf("Try Again \n");
+                    reset();
+
+                }
+                else{
+                    check_white=0;
+                    continue;
+                }
+                }
+
+            }
+            else{
+                // scan move
+                r_scan=scan_move(pieces);
+
+            }
+            if(s==1){
+                continue;
+                clrscr();
+            }
+
                                  //case of check
        // undo case again
                     if(un ==1 ){
@@ -214,12 +303,34 @@ int main()
                 //move it
                 if(element_flag==1 && way_flag==1){
                      move_pieces(pieces,r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
+                      happen=0;
+                       save_move_a(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1]);
                     print_board(pieces);
                                 // check checkmate according to counter
                                    // check checkmate
                   check_black = mate_check(pieces,'K','b');
 
                   check_white =  mate_check(pieces,'k','w');
+                if(check_black==0){
+                    int a=check_stalemate_black(pieces);
+                    if(a==1){
+                        checkmate=1;
+                        red();
+                        printf("   Stale Mate \n");
+                        printf("    Game Is ended by DRAW \n");
+                        reset();
+                    }
+                  }
+                  else if(check_white==0){
+                    int a=check_stalemate_white(pieces);
+                    if(a==1){
+                        checkmate=1;
+                        red();
+                        printf("   Stale Mate \n");
+                        printf("    Game Is ended by DRAW \n");
+                        reset();
+                    }
+                  }
                   if(check_black ==1 && i%2!=0){
                     checkmate=1;
                      red();
@@ -227,7 +338,7 @@ int main()
                     printf("Black King IS Dead :( \n");
                     reset();
                   }
-                  else if(check_white==1 && i%2==0){
+                   if(check_white==1 && i%2==0){
                     checkmate=1;
                     red();
                     printf("Check Mate \n");
@@ -237,11 +348,14 @@ int main()
 
                     //check promotion
                     if(promtoion_flag==1){
-                    make_promo(pieces,r_scan.letter[1],r_scan.num[1],r_scan.letter[2]);
+                   make_promo(pieces,r_scan.letter[1],r_scan.num[1],r_scan.letter[2]);
+                    promd=r_scan.letter[2];
                     clrscr();
                     print_board(pieces);
+                    save_move_p(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1],promtoion_flag);
+                    promtoion_flag==0;
                     }
-                    pro_un=save_move(r_scan.letter[0],r_scan.num[0],r_scan.letter[1],r_scan.num[1],promtoion_flag);
+
                 }
 
             }
