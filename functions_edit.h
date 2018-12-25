@@ -108,44 +108,6 @@ void clrscr()
                                 happen++;
                                 un=1;
                         }
-                 /*   if(undo_counter==0){//if he press u and dont reach to steady state
-                        for(int j=0;j<happen;j++){
-                         undo[j].letter[0]=0;
-                         undo[j].num[0]=0;
-                         undo[j].letter[1]=0;
-                         undo[j].num[1]=0;
-                         s_p[j].letter[0]=0;
-                         s_p[j].num[0]=0;
-                         s_p[j].letter[1]=0;
-                         s_p[j].num[1]=0;
-                         s_p_1[j].letter[0]=0;
-                         s_p_1[j].num[0]=0;
-                         s_p_1[j].letter[1]=0;
-                         s_p_1[j].num[1]=0;
-                         white_lost[j];
-                         black_lost[j];
-                    }
-                    sp=0,sp_1=0,w_lost=0,b_lost=0;
-                 }*/
-            }else if(undo_counter==0 ){ // after he reach to steady state.
-                    for(int j=0;j<happen;j++){
-                         undo[j].letter[0]=0;
-                         undo[j].num[0]=0;
-                         undo[j].letter[1]=0;
-                         undo[j].num[1]=0;
-                         s_p[j].letter[0]=0;
-                         s_p[j].num[0]=0;
-                         s_p[j].letter[1]=0;
-                         s_p[j].num[1]=0;
-                         s_p_1[j].letter[0]=0;
-                         s_p_1[j].num[0]=0;
-                         s_p_1[j].letter[1]=0;
-                         s_p_1[j].num[1]=0;
-                         white_lost[j];
-                         black_lost[j];
-                    }
-                    sp=0,sp_1=0,w_lost=0,b_lost=0;
-                 }
 
         }
         else if(t[0]=='r'||t[0]=='R'){
@@ -429,28 +391,9 @@ struct board_str move_pieces(struct board_str e[8][8],char a,int b,char c,int d)
 
 
         if(undos1==0 && undos==0&& redo==0&&redo1==0){
-                  /*  if(promtoion_flag ){
-                        //we should know when promotion occur it return 0 when you make undo ;
-                        //in case of promotion flag and redo  >>because when no undo and flag==1 he will make cl=w or b.
-                        if(white_lost[w_lost-1]==e[v][w].print){
-                            s_p[sp].letter[0]=a;
-                            s_p[sp].num[0]=b;
-                            s_p[sp].letter[1]=c;
-                            s_p[sp].num[1]=d;
-                            sp++;
-                            cl='w';
-                        }else if(black_lost[b_lost-1]==e[v][w].print){
-                            s_p_1[sp_1].letter[0]=a;
-                            s_p_1[sp_1].num[0]=b;
-                            s_p_1[sp_1].letter[1]=c;
-                            s_p_1[sp_1].num[1]=d;
-                            sp_1++;
-                            cl='b';
-                        }
-
-                }*/ //here >> when the eaten piece equal to the white or black piece at the list
+/ //here >> when the eaten piece equal to the white or black piece at the list
                 //we make a structure to save this moves..for white and black.
-                         /*  else*/ if(white_lost[w_lost-1]==e[v][w].print){
+             if(white_lost[w_lost-1]==e[v][w].print){
                                 s_p[sp].letter[0]=a;
                                 s_p[sp].num[0]=b;
                                 s_p[sp].letter[1]=c;
